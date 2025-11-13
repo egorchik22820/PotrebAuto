@@ -72,8 +72,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\ExcelReaderExtensions.cs" />
     <Compile Include="Models\ConsumersDataObject.cs" />
     <Compile Include="Models\DTO\CellDTO.cs" />
+    <Compile Include="Models\SourcesAndConsumersObject.cs" />
+    <Compile Include="Servises\ExcelReaderServices\ConsumersFileReaderService.cs" />
+    <Compile Include="Servises\ExcelReaderServices\SourcesAndConsumersFileReaderService.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -97,6 +101,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="ExcelTemplates\ConsumersTemplate.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -108,10 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="ExcelTemplates\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Instructions\" />
-    <Folder Include="Servises\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\icon.ico">
