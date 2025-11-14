@@ -114,13 +114,13 @@
 
                 <StackPanel HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
                     
-                    <Button x:Name="selectOriginalFileBtn" Content="Исходник"
+                    <Button x:Name="OriginalFileBtn" Content="Исходник"
                             FontWeight="DemiBold"
-                            Click="selectOriginalFileBtn_Click" Margin="5" 
+                            Click="OriginalFileBtn_Click" Margin="5" 
                             Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
                             />
 
-                    <TextBlock x:Name="selectedOriginalFileText" Margin="5" TextWrapping="Wrap"
+                    <TextBlock x:Name="OriginalFileText" Margin="5" TextWrapping="Wrap"
                                FontWeight="DemiBold"
                                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
@@ -128,14 +128,14 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    
-                    <Button x:Name="selectConsumersFileBtn" Content="Источники - потребители"
+
+                    <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
                             FontWeight="DemiBold"
-                            Click="selectConsumersFileBtn_Click" Margin="5" 
+                            Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
                             Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
                             />
 
-                    <TextBlock x:Name="selectedConsumersFileText" Margin="5" TextWrapping="Wrap"
+                    <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
                                FontWeight="DemiBold"
                                Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
                                />

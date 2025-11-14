@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PotrebAuto.Extensions;
 
 namespace PotrebAuto.Servises.ExcelReaderServices
 {
@@ -69,7 +68,8 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                             IsValid_M1_M2 = worksheet.Cells[row, 22].GetCellDTO(),
                             IsValid_M1_M2_2 = worksheet.Cells[row, 23].GetCellDTO(),
                             Q_eng = worksheet.Cells[row, 24].GetCellDTO(),
-                            IsValid_T = worksheet.Cells[row, 25].GetCellDTO()
+                            IsValid_T = worksheet.Cells[row, 25].GetCellDTO(),
+                            DaysValue = worksheet.GetMonthIndicationsList(row,26)
 
                         };
 

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PotrebAuto.Extensions
 {
@@ -54,19 +55,15 @@ namespace PotrebAuto.Extensions
                     var cellDto = cell.GetCellDTO();
 
                     // Можно добавить дополнительную информацию
-                    cellDto.Text = cell.Text;
-                    cellDto.Value = decimal.TryParse(cell.Value,out var res);
+                    cellDto.Text = cell.Text ?? string.Empty;
+                    cellDto.Hyperlink = cell.Hyperlink;
+                    cellDto.BackGroundColor = cell.Style.Fill.BackgroundColor;
 
                     daysList.Add(cellDto);
                 }
                 catch (Exception ex)
                 {
-                    daysList.Add(new CellDTO
-                    {
-                        Text = string.Empty,
-                        BackgroundColor = Color.LightGray,
-                        DayNumber = col - startColNumber + 1
-                    });
+                    MessageBox.Show("Ошибка чтения списка дней", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 

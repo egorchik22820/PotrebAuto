@@ -1,4 +1,5 @@
 using PotrebAuto.Models.DTO;
+using PotrebAuto.Servises;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,14 @@ namespace PotrebAuto.Models
 
         public CellDTO Number {  get; set; }
         public CellDTO Address { get; set; }
-        public CellDTO TU_AIIS { get; set; } // added
+        public CellDTO TU_AIIS
+        {
+            get
+            {
+                return Address != null ? new CellDTO { Text = Address.Hyperlink.TryGetIdFromHyperlink() }
+                                            : new CellDTO { Text = "Нет данных" };
+            }
+        } // added
         public CellDTO ObjectId { get; set; } // added
         public CellDTO  PO_AIIS_Total { get; set; } // added
         public CellDTO ColorDaysCount { get; set; } // added

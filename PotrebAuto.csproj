@@ -72,10 +72,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\ConsumersUnionDataExtension.cs" />
     <Compile Include="Extensions\ExcelReaderExtensions.cs" />
+    <Compile Include="Extensions\Filters\WriteToExcelExtensions.cs" />
     <Compile Include="Models\ConsumersDataObject.cs" />
     <Compile Include="Models\DTO\CellDTO.cs" />
     <Compile Include="Models\SourcesAndConsumersObject.cs" />
+    <Compile Include="Servises\DataServices.cs" />
     <Compile Include="Servises\ExcelReaderServices\ConsumersFileReaderService.cs" />
     <Compile Include="Servises\ExcelReaderServices\SourcesAndConsumersFileReaderService.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">

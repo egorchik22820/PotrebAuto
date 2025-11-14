@@ -14,14 +14,17 @@ namespace PotrebAuto.Models.DTO
         public CellDTO(ExcelRange cell)
         {
             Text = cell.Text ?? string.Empty;
-            Value = cell.Value is decimal ? (decimal)cell.Value : 0;
-            Hyperlink = cell.Hyperlink.ToString() ?? string.Empty;
+            Hyperlink = cell.Hyperlink;
             BackGroundColor = cell.Style.Fill.BackgroundColor;
         }
 
+        public CellDTO()
+        {
+
+        }
+
         public string Text { get; set; }
-        public decimal Value { get; set; }
-        public string Hyperlink { get; set; }
+        public Uri Hyperlink { get; set; }
         public ExcelColor BackGroundColor { get; set; }
     }
 }
