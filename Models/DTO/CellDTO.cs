@@ -11,20 +11,27 @@ namespace PotrebAuto.Models.DTO
 {
     public class CellDTO
     {
-        public CellDTO(ExcelRange cell)
-        {
-            Text = cell.Text ?? string.Empty;
-            Hyperlink = cell.Hyperlink;
-            BackGroundColor = cell.Style.Fill.BackgroundColor;
-        }
 
         public CellDTO()
         {
 
         }
 
-        public string Text { get; set; }
+        public object Value
+        {
+            get
+            {
+                if (Digit == null)
+                {
+                    return Text;
+                }
+                return Digit;
+            }
+            set { }
+        }
+        public decimal? Digit { get; set; }
+        public string Text {  get; set; }
         public Uri Hyperlink { get; set; }
-        public ExcelColor BackGroundColor { get; set; }
+        public string BackGroundColorRgb { get; set; }
     }
 }

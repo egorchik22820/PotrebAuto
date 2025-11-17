@@ -39,8 +39,21 @@ namespace PotrebAuto.Extensions
 
         public static CellDTO GetCellDTO(this ExcelRange cell)
         {
-            var cellDTO = new CellDTO(cell);
+            var cellDTO = new CellDTO
+            {
+                Value = cell.Value,
+                Digit = cell.GetDecimalValue(),
+                Text = cell.SafeGetText(),
+                Hyperlink = cell.Hyperlink,
+                BackGroundColorRgb = cell.Style.Fill.BackgroundColor?.Rgb
+
+            };
             return cellDTO;
+        }
+
+        public static decimal GetColorDaysCount(this List<CellDTO> list)
+        {
+            return list?.Count(cell => cell?.BackGroundColorRgb != null) ?? 0;
         }
 
         public static List<CellDTO> GetMonthIndicationsList(this ExcelWorksheet worksheet, int row, int startColNumber)
@@ -55,15 +68,15 @@ namespace PotrebAuto.Extensions
                     var cellDto = cell.GetCellDTO();
 
                     // Можно добавить дополнительную информацию
-                    cellDto.Text = cell.Text ?? string.Empty;
+                    cellDto.Value = cell.Value ?? string.Empty;
                     cellDto.Hyperlink = cell.Hyperlink;
-                    cellDto.BackGroundColor = cell.Style.Fill.BackgroundColor;
+                    cellDto.BackGroundColorRgb = cell.Style.Fill.BackgroundColor.Rgb;
 
                     daysList.Add(cellDto);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка чтения списка дней", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"Ошибка чтения списка дней:{ex.Message}", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 
@@ -110,6 +123,18 @@ namespace PotrebAuto.Extensions
             try
             {
                 return worksheet.Cells[row, col]?.Text?.Trim() ?? string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string SafeGetText(this ExcelRange cell)
+        {
+            try
+            {
+                return cell?.Text?.Trim() ?? string.Empty;
             }
             catch
             {

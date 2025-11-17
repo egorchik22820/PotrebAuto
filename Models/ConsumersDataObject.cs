@@ -22,12 +22,12 @@ namespace PotrebAuto.Models
         {
             get
             {
-                return Address != null ? new CellDTO { Text = Address.Hyperlink.TryGetIdFromHyperlink() }
-                                            : new CellDTO { Text = "Нет данных" };
+                return Address != null ? new CellDTO { Value = Address.Hyperlink.TryGetIdFromHyperlink() }
+                                            : new CellDTO { Value = "Нет данных" };
             }
         } // added
         public CellDTO ObjectId { get; set; } // added
-        public CellDTO  PO_AIIS_Total { get; set; } // added
+        public CellDTO PO_AIIS_Total { get; set; }// added
         public CellDTO ColorDaysCount { get; set; } // added
         public CellDTO Id { get; set; }
         public CellDTO PU_GcalTotal { get; set; }

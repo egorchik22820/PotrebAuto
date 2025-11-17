@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using PotrebAuto.Extensions;
 using PotrebAuto.Models;
+using PotrebAuto.Servises;
 using PotrebAuto.Servises.ExcelReaderServices;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ using Path = System.IO.Path;
 namespace PotrebAuto.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Р›РѕРіРёРєР° РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ РґР»СЏ MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -41,7 +42,7 @@ namespace PotrebAuto.Windows
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
-                Title = "Выберите файл потребителей",
+                Title = "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РїРѕС‚СЂРµР±РёС‚РµР»РµР№",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
@@ -59,7 +60,7 @@ namespace PotrebAuto.Windows
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
-                Title = "Выберите файл с исочниками",
+                Title = "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» СЃ РёСЃРѕС‡РЅРёРєР°РјРё",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
@@ -74,11 +75,46 @@ namespace PotrebAuto.Windows
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
+            // Путь до шаблона и итоговой формы
+            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
+            // Автоматическое сохранение в папку на рабочем столе
+            string reportsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Потребители");
+
+            // Создаем папку если ее нет
+            if (!Directory.Exists(reportsFolder))
+                Directory.CreateDirectory(reportsFolder);
+
+            string newFilePath = Path.Combine(reportsFolder, "Потребители_ДАТА.xlsx");
+
+
+
             List<ConsumersDataObject> consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath);
 
             List<SourcesAndConsumersObject> sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath);
 
             List<ConsumersDataObject> result = consumers.GetUnionData(sources);
+
+
+
+            // вставка в эксель
+            ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
+                                                result);
+
+            ReadyText.Text = "ГОТОВО";
+            ReadyText.Margin = new Thickness(10);
+
+            // Открываем папку с файлом
+            try
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{newFilePath}\"");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось открыть папку: {ex.Message}",
+                              "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+
         }
 
         private void settingsBtn_Click(object sender, RoutedEventArgs e)

@@ -16,10 +16,15 @@ namespace PotrebAuto.Extensions
         {
             var SACDict = sourcesAndConsumers.GroupBy(x => x.TU_Id).ToDictionary(g => g.Key, g => g.First());// поменять архитектуру, не нужно создавать новый объект, разделить логику
 
-            foreach (var cm in consumers)
+            var cons = consumers.Where(x => x.TU_AIIS.Value != null)
+                                .ToList();
+
+            foreach (var cm in cons)
             {
-                SACDict.TryGetValue(cm.TU_AIIS.Text, out var sacItem);
+                SACDict.TryGetValue(cm.TU_AIIS.Value.ToString(), out var sacItem);
                 cm.ObjectId = new CellDTO { Text = sacItem != null ? sacItem.Obj_Id : "Нет данных" };
+                cm.PO_AIIS_Total = new CellDTO { Digit = cm.PU_GcalTotal.Digit + cm.ZM_GcalTotal.Digit };
+                cm.ColorDaysCount = new CellDTO { Digit = cm.DaysValue.GetColorDaysCount() };
             }
             return consumers;
         }
