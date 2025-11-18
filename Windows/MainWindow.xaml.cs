@@ -42,7 +42,7 @@ namespace PotrebAuto.Windows
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
-                Title = "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РїРѕС‚СЂРµР±РёС‚РµР»РµР№",
+                Title = "Выберете исходный файл",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
@@ -60,7 +60,7 @@ namespace PotrebAuto.Windows
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
-                Title = "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» СЃ РёСЃРѕС‡РЅРёРєР°РјРё",
+                Title = "Выберете файл Источники - потребители",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
