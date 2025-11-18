@@ -119,7 +119,8 @@ namespace PotrebAuto.Windows
 
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            SettingsWindow settings = new SettingsWindow();
+            settings.Show();
         }
 
         private void instructionBtn_Click(object sender, RoutedEventArgs e)

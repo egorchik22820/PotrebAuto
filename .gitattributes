@@ -3,6 +3,21 @@
 ###############################################################################
 * text=auto
 
+# Установите кодировку для всех текстовых файлов
+*.cs text working-tree-encoding=UTF-8
+*.xaml text working-tree-encoding=UTF-8
+*.csproj text working-tree-encoding=UTF-8
+*.sln text working-tree-encoding=UTF-8
+*.config text working-tree-encoding=UTF-8
+*.txt text working-tree-encoding=UTF-8
+*.md text working-tree-encoding=UTF-8
+
+# Для бинарных файлов
+*.exe binary
+*.dll binary
+*.png binary
+*.jpg binary
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

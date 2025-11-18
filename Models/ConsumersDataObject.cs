@@ -56,5 +56,5 @@ namespace PotrebAuto.Models
         public CellDTO IsValid_T {  get; set; }
         public List<CellDTO> DaysValue { get; set; }
 
-}
+    }
 }
