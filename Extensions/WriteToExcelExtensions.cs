@@ -60,36 +60,47 @@ namespace PotrebAuto.Extensions
                 {
                     if (consumer.DaysValue[j] != null)
                     {
-                        worksheet.Cells[row, 29 + j + 1].InsertToCell(consumer.DaysValue[j]);
+                        worksheet.Cells[row, 29 + j + 1].InsertToCell(consumer.DaysValue[j]);// 29 - начало цветов в шаблоне
                     }
 
+                }
+            }
+
+            int counter = 0;
+            foreach (var consumer in consumers)
+            {
+                if (counter <= consumer.DateList.Count - 1)
+                {
+                    worksheet.Cells[1, 29 + counter + 1].InsertToCell(consumer.DateList[counter]);
+                    counter++;
                 }
             }
         }
 
         public static void InsertToCell(this ExcelRange cell, CellDTO dto)
         {
-            if (dto.Value != null)
-                cell.Value = dto?.Value ?? string.Empty;
-            else
+            if (dto == null)
             {
-                cell.Value = dto?.Text ?? string.Empty;
+                cell.Value = string.Empty;
+                return;
             }
 
-
-            // Гиперссылка
-            if (dto?.Hyperlink != null)
+            // Сначала устанавливаем гиперссылку (если есть)
+            if (dto.Hyperlink != null)
             {
                 cell.Hyperlink = dto.Hyperlink;
             }
 
+            // Затем устанавливаем значение
+            cell.Value = dto.Value ?? string.Empty;
+
             // Цвет фона
-            if (!string.IsNullOrEmpty(dto?.BackGroundColorRgb))
+            if (!string.IsNullOrEmpty(dto.BackGroundColorRgb))
             {
                 DataServices.ApplyRgbColorToCell(cell, dto.BackGroundColorRgb);
             }
         }
 
-        
+
     }
 }

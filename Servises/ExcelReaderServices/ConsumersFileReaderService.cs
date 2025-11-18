@@ -73,6 +73,11 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
                         };
 
+                        if (worksheet.Cells[1, 26].Value != null)
+                        {
+                            data.DateList = worksheet.GetDateList(1, 26);
+                        }
+
                         result.Add(data);
                     }
                     catch (Exception ex)

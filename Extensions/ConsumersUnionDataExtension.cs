@@ -22,9 +22,10 @@ namespace PotrebAuto.Extensions
             foreach (var cm in cons)
             {
                 SACDict.TryGetValue(cm.TU_AIIS.Value.ToString(), out var sacItem);
-                cm.ObjectId = new CellDTO { Text = sacItem != null ? sacItem.Obj_Id : "Нет данных" };
-                cm.PO_AIIS_Total = new CellDTO { Digit = cm.PU_GcalTotal.Digit + cm.ZM_GcalTotal.Digit };
-                cm.ColorDaysCount = new CellDTO { Digit = cm.DaysValue.GetColorDaysCount() };
+
+                cm.ObjectId = new CellDTO { Value = sacItem != null ? sacItem.Obj_Id : "Нет данных" };
+                cm.PO_AIIS_Total = new CellDTO { Value = cm.PU_GcalTotal.Digit + cm.ZM_GcalTotal.Digit };
+                cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
             }
             return consumers;
         }

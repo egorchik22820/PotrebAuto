@@ -42,8 +42,6 @@ namespace PotrebAuto.Extensions
             var cellDTO = new CellDTO
             {
                 Value = cell.Value,
-                Digit = cell.GetDecimalValue(),
-                Text = cell.SafeGetText(),
                 Hyperlink = cell.Hyperlink,
                 BackGroundColorRgb = cell.Style.Fill.BackgroundColor?.Rgb
 
@@ -68,8 +66,8 @@ namespace PotrebAuto.Extensions
                     var cellDto = cell.GetCellDTO();
 
                     // Можно добавить дополнительную информацию
-                    cellDto.Value = cell.Value ?? string.Empty;
                     cellDto.Hyperlink = cell.Hyperlink;
+                    cellDto.Value = cell.Value ?? string.Empty;
                     cellDto.BackGroundColorRgb = cell.Style.Fill.BackgroundColor.Rgb;
 
                     daysList.Add(cellDto);
@@ -81,6 +79,33 @@ namespace PotrebAuto.Extensions
             }
 
             return daysList;
+        }
+
+        public static List<CellDTO> GetDateList(this ExcelWorksheet worksheet, int row, int startColNumber)
+        {
+            var dateList = new List<CellDTO>(31);
+
+            for (int col = startColNumber; col < startColNumber + 31; col++)
+            {
+                try
+                {
+                    var cell = worksheet.Cells[row, col];
+                    var cellDto = cell.GetCellDTO();
+
+                    // Можно добавить дополнительную информацию
+                    cellDto.Hyperlink = cell.Hyperlink;
+                    cellDto.Value = cell.Value ?? string.Empty;
+                    cellDto.BackGroundColorRgb = cell.Style.Fill.BackgroundColor.Rgb;
+
+                    dateList.Add(cellDto);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка чтения списка дат:{ex.Message}", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+
+            return dateList;
         }
 
         public static decimal GetDecimaPositivelValue(this ExcelRange cell)

@@ -13,6 +13,7 @@ namespace PotrebAuto.Models
         public ConsumersDataObject()
         {
             DaysValue = new List<CellDTO>(35); // максимальное кол-во дней в месяце + 4
+            DateList = new List<CellDTO>(35);
         }
 
 
@@ -29,6 +30,7 @@ namespace PotrebAuto.Models
         public CellDTO ObjectId { get; set; } // added
         public CellDTO PO_AIIS_Total { get; set; }// added
         public CellDTO ColorDaysCount { get; set; } // added
+        public List<CellDTO> DateList { get; set; }// added
         public CellDTO Id { get; set; }
         public CellDTO PU_GcalTotal { get; set; }
         public CellDTO PU_WithVNR_Gcal { get; set; }
