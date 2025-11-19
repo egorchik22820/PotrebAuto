@@ -25,17 +25,17 @@ namespace PotrebAuto.Windows
         }
         
 
-        private void SatrtRowsSaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void SourcesAndConsumersSaveButton_Click(object sender, RoutedEventArgs e)
         {
             
         }
 
         private void ConsumersDataSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TableSettingsSaveButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

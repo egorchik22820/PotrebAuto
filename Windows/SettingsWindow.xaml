@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PotrebAuto.Windows"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="450" Width="800" ResizeMode="NoResize" Background="#FFAFF78A">
+        Title="Настройки" Height="450" Width="800" ResizeMode="NoResize" Background="#FFAFF78A" Icon="/Images/icon.ico">
 
     <Window.Resources>
         <Style x:Key="ValidatedTextBoxStyle" TargetType="TextBox">
@@ -19,10 +19,10 @@
     </Window.Resources>
 
     <Grid>
-        <Label Content="Проставьте номера столбцов (или строк) для загружаемых файлов" HorizontalAlignment="Right" Margin="40,0" FontSize="12" FontWeight="SemiBold" Foreground="#FF0087FF"/>
+        <Label Content="Проставьте номера столбцов (или строк) для загружаемых файлов" HorizontalAlignment="Right" Margin="20,0" FontSize="12" FontWeight="SemiBold" Foreground="#FF0087FF"/>
         <TabControl Background="#FFDDEED0" Margin="0,3">
             <!-- Вкладка ConsumersData -->
-            <TabItem Header="ConsumersData">
+            <TabItem Header="Потребители">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
@@ -62,104 +62,93 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Number:" Margin="0,5"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Номер(№):" Margin="0,5"/>
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="NumberTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Margin="0,5"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Адрес:" Margin="0,5"/>
                         <TextBox Grid.Row="1" Grid.Column="1" x:Name="AddressTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="TU AIIS:" Margin="0,5"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="TU_AIISTextBox" Margin="5" Height="25"/>
-
-                        <Label Grid.Row="3" Grid.Column="0" Content="Object ID:" Margin="0,5"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" x:Name="ObjectIdTextBox" Margin="5" Height="25"/>
-
-                        <Label Grid.Row="4" Grid.Column="0" Content="PO AIIS Total:" Margin="0,5"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="PO_AIIS_TotalTextBox" Margin="5" Height="25"/>
-
-                        <Label Grid.Row="5" Grid.Column="0" Content="Color Days Count:" Margin="0,5"/>
-                        <TextBox Grid.Row="5" Grid.Column="1" x:Name="ColorDaysCountTextBox" Margin="5" Height="25"/>
-
-                        <Label Grid.Row="6" Grid.Column="0" Content="ID:" Margin="0,5"/>
+                        
+                        <Label Grid.Row="6" Grid.Column="0" Content="Идентификатор:" Margin="0,5"/>
                         <TextBox Grid.Row="6" Grid.Column="1" x:Name="IdTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="7" Grid.Column="0" Content="PU Gcal Total:" Margin="0,5"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Всего, Гкал(ПУ):" Margin="0,5"/>
                         <TextBox Grid.Row="7" Grid.Column="1" x:Name="PU_GcalTotalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="8" Grid.Column="0" Content="PU With VNR Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="8" Grid.Column="0" Content="В т.ч. досчет по ВНР, Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="8" Grid.Column="1" x:Name="PU_WithVNR_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="9" Grid.Column="0" Content="ZM Gcal Total:" Margin="0,5"/>
+                        <Label Grid.Row="9" Grid.Column="0" Content="Всего, Гкал(ЗМ):" Margin="0,5"/>
                         <TextBox Grid.Row="9" Grid.Column="1" x:Name="ZM_GcalTotalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="10" Grid.Column="0" Content="ZM With Average Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="10" Grid.Column="0" Content="В т.ч. по средним показаниям(СЗБП), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="10" Grid.Column="1" x:Name="ZM_WithAverage_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="11" Grid.Column="0" Content="With BS Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="11" Grid.Column="0" Content="В т.ч. по одному акту БС, Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="11" Grid.Column="1" x:Name="WithBS_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="12" Grid.Column="0" Content="With Real Load BS Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="12" Grid.Column="0" Content="В т.ч. по факической нагрузке по данным БС(ФН БС), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="12" Grid.Column="1" x:Name="WithRealLoadBS_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="13" Grid.Column="0" Content="With Real Load TU Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="13" Grid.Column="0" Content="В т.ч. по фактической нагрузке в ТУ(ФН в ТУ), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="13" Grid.Column="1" x:Name="WithRealLoadTU_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="14" Grid.Column="0" Content="With NP Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="14" Grid.Column="0" Content="В т.ч. по объектам-аналогам системы теплоснабжения, НП (Аналоги по теплосистеме), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="14" Grid.Column="1" x:Name="WithNP_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="15" Grid.Column="0" Content="With Cab Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="15" Grid.Column="0" Content="В т.ч. по объектам-аналогам кабинета (Аналоги по кабинету), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="15" Grid.Column="1" x:Name="WithCab_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="16" Grid.Column="0" Content="With KSN Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="16" Grid.Column="0" Content="В т.ч. по средней нагрузке ГВС с компенсацией суточной неравномерности (СН ГВС с КСН), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="16" Grid.Column="1" x:Name="WithKSN_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="17" Grid.Column="0" Content="With Real Load FN Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="17" Grid.Column="0" Content="В т.ч. по фактической нагрузке (ФН методика пр.610), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="17" Grid.Column="1" x:Name="WithRealLoad_FN_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="18" Grid.Column="0" Content="With Doc And KSN Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="18" Grid.Column="0" Content="В т.ч. по договорной нагрузке отопления и средней нагрузке ГВС... (ДН Отопл + СН ГВС с КСН), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="18" Grid.Column="1" x:Name="WithDocAndKSN_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="19" Grid.Column="0" Content="With Doc Gcal:" Margin="0,5"/>
+                        <Label Grid.Row="19" Grid.Column="0" Content="В т.ч. по договорной нагрузке (ДН), Гкал:" Margin="0,5"/>
                         <TextBox Grid.Row="19" Grid.Column="1" x:Name="WithDoc_GcalTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="20" Grid.Column="0" Content="Correct Notes Count:" Margin="0,5"/>
+                        <Label Grid.Row="20" Grid.Column="0" Content="Корректных записей:" Margin="0,5"/>
                         <TextBox Grid.Row="20" Grid.Column="1" x:Name="CorrectNotesCountTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="21" Grid.Column="0" Content="Q T M Is Null:" Margin="0,5"/>
+                        <Label Grid.Row="21" Grid.Column="0" Content="Q, T, M = null:" Margin="0,5"/>
                         <TextBox Grid.Row="21" Grid.Column="1" x:Name="Q_T_M_IsNullTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="22" Grid.Column="0" Content="Acts BS:" Margin="0,5"/>
+                        <Label Grid.Row="22" Grid.Column="0" Content="Акты БС:" Margin="0,5"/>
                         <TextBox Grid.Row="22" Grid.Column="1" x:Name="ActsBSTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="23" Grid.Column="0" Content="Max Min Q M:" Margin="0,5"/>
+                        <Label Grid.Row="23" Grid.Column="0" Content="MAX/MIN(Q,M):" Margin="0,5"/>
                         <TextBox Grid.Row="23" Grid.Column="1" x:Name="Max_Min_Q_MTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="24" Grid.Column="0" Content="Is Valid VNR:" Margin="0,5"/>
+                        <Label Grid.Row="24" Grid.Column="0" Content="ВНР&gt;105% или ВНР&lt;75%:" Margin="0,5"/>
                         <TextBox Grid.Row="24" Grid.Column="1" x:Name="IsValid_VNRTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="25" Grid.Column="0" Content="Is Valid M1 M2:" Margin="0,5"/>
+                        <Label Grid.Row="25" Grid.Column="0" Content="М1 &lt; 0,96 × М2:" Margin="0,5"/>
                         <TextBox Grid.Row="25" Grid.Column="1" x:Name="IsValid_M1_M2TextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="26" Grid.Column="0" Content="Is Valid M1 M2 2:" Margin="0,5"/>
+                        <Label Grid.Row="26" Grid.Column="0" Content="M1 &gt; 2 x M2:" Margin="0,5"/>
                         <TextBox Grid.Row="26" Grid.Column="1" x:Name="IsValid_M1_M2_2TextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="27" Grid.Column="0" Content="Q Eng:" Margin="0,5"/>
+                        <Label Grid.Row="27" Grid.Column="0" Content="Qинж:" Margin="0,5"/>
                         <TextBox Grid.Row="27" Grid.Column="1" x:Name="Q_engTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="28" Grid.Column="0" Content="Is Valid T:" Margin="0,5"/>
+                        <Label Grid.Row="28" Grid.Column="0" Content="Т &lt; 0°С или Т &gt; 150°С:" Margin="0,5"/>
                         <TextBox Grid.Row="28" Grid.Column="1" x:Name="IsValid_TTextBox" Margin="5" Height="25"/>
 
                         <Button Grid.Row="29" Grid.Column="0" Grid.ColumnSpan="2"
                                 FontWeight="SemiBold"
-                                x:Name="ConsumersDataSaveButton" Content="Сохранить настройки ConsumersData" 
-                                Width="240" Height="30" Margin="0,10" HorizontalAlignment="Right"
+                                x:Name="ConsumersDataSaveButton" Content="Сохранить настройки для потребителей" 
+                                Width="260" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="ConsumersDataSaveButton_Click"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
 
             <!-- Вкладка SourcesAndConsumers -->
-            <TabItem Header="SourcesAndConsumers">
+            <TabItem Header="Источники - потребители">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FFDDEED0">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
@@ -172,23 +161,23 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="TU ID:" Margin="0,5"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Идентификатор точки учета:" Margin="0,5"/>
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="TU_IdTextBox" Margin="5" Height="25"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Object ID:" Margin="0,5"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Идентификатор объекта:" Margin="0,5"/>
                         <TextBox Grid.Row="1" Grid.Column="1" x:Name="Obj_IdTextBox" Margin="5" Height="25"/>
 
                         <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                 FontWeight="SemiBold"
-                                x:Name="SourcesAndConsumersSaveButton" Content="Сохранить настройки SourcesAndConsumers" 
-                                Width="280" Height="30" Margin="0,10" HorizontalAlignment="Right"
+                                x:Name="SourcesAndConsumersSaveButton" Content="Сохранить настройки для источников и потребителей" 
+                                Width="330" Height="30" Margin="0,10" HorizontalAlignment="Right"
                                 Click="SourcesAndConsumersSaveButton_Click"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
 
-            <!-- Вкладка начальные строки -->
-            <TabItem Header="Начальные строки">
+            <!-- Вкладка Table Settings -->
+            <TabItem Header="Положение таблиц">
                 <Grid Margin="10" Background="#FFDDEED0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -207,37 +196,33 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Grid.ColumnSpan="2">
-                        <Label Content="Проставьте необходимые номера строк закгружаемых файлов, с которых начинаеются данные" Margin="0,0" FontSize="14" FontWeight="SemiBold" Foreground="#FFD76704"/>
-                        <Label Content="(не там, где начинаются заголовки столбцов, а там, где уже сами данные)" Margin="0,0" FontSize="14" FontWeight="SemiBold" Foreground="#FFD76704" HorizontalAlignment="Center"/>
+                        <Label Content="Настройки таблиц и данных" Margin="0,0" FontSize="14" FontWeight="SemiBold" Foreground="#FFD76704" HorizontalAlignment="Center"/>
+                        <Label Content="Укажите начальные строки и колонки для различных данных" Margin="0,0" FontSize="14" FontWeight="SemiBold" Foreground="#FFD76704" HorizontalAlignment="Center"/>
                     </StackPanel>
 
+                    <Label Grid.Row="1" Grid.Column="0" Content="Начало таблицы потребителей(номер строки):" Margin="0,5"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="ConsumersTableRowStartTextBox" Margin="5" Height="25"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="МП файл:" Margin="0,5"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="MP_StartRowTextBox" Margin="5" Height="25"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Начало данных таблицы потребителей(номер строки):" Margin="0,5"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="ConsumersDataRowStartTextBox" Margin="5" Height="25"/>
 
-                    <Label Grid.Row="2" Grid.Column="0" Content="Накладная:" Margin="0,5"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="Naklad_StartRowTextBox" Margin="5" Height="25"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Начало таблицы иточников и потребителей(номер строки):" Margin="0,5"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="SACTableRowStartTextBox" Margin="5" Height="25"/>
 
-                    <Label Grid.Row="3" Grid.Column="0" Content="ОДН файл:" Margin="0,5"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="ODN_StartRowTextBox" Margin="5" Height="25"/>
+                    <Label Grid.Row="4" Grid.Column="0" Content="Начало данных таблицы иточников и потребителей(номер строки):" Margin="0,5"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="SACDataRowStartTextBox" Margin="5" Height="25"/>
 
-                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Файл потерь ГВС:" FontWeight="Bold" Margin="10,10"/>
+                    <Label Grid.Row="5" Grid.Column="0" Content="Начало колонок с датами(номер колонки):" Margin="0,5"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" x:Name="DatesColStartTextBox" Margin="5" Height="25"/>
 
-                    <Label Grid.Row="5" Grid.Column="0" Content="МКД с ОДПУ:" Margin="0,5"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" x:Name="WithODPU_StartRowTextBox" Margin="5" Height="25"/>
-
-                    <Label Grid.Row="6" Grid.Column="0" Content="МКД без ОДПУ:" Margin="0,5"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="WithOutODPU_StartRowTextBox" Margin="5" Height="25"/>
-
-                    <Label Grid.Row="7" Grid.Column="0" Content="МКД с ИТП:" Margin="0,5"/>
-                    <TextBox Grid.Row="7" Grid.Column="1" x:Name="WithITP_StartRowTextBox" Margin="5" Height="25"/>
+                    <Label Grid.Row="7" Grid.Column="0" Content="Дней в месяце:" Margin="0,5"/>
+                    <TextBox Grid.Row="7" Grid.Column="1" x:Name="DaysInMonthTextBox" Margin="5" Height="25"/>
 
                     <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                             FontWeight="SemiBold"
-                            x:Name="ODNSaveButаton" Content="Сохранить настройки строк" 
-                            Width="175" Height="30" Margin="0,10" HorizontalAlignment="Right"
-                            Click="SatrtRowsSaveButton_Click"/>
-
+                            x:Name="TableSettingsSaveButton" Content="Сохранить настройки таблиц" 
+                            Width="200" Height="30" Margin="0,10" HorizontalAlignment="Right"
+                            Click="TableSettingsSaveButton_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

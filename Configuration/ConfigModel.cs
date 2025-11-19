@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PotrebAuto.Configuration
 {
-    public class ConfigModel
+    public static class ConfigModel
     {
         // Текущие конфигурации (загружаются из JSON)
         public static ConstantsConfig ConstantsConf { get; set; } = new ConstantsConfig();
