@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +22,22 @@ namespace PotrebAuto.Windows
         public SettingsWindow()
         {
             InitializeComponent();
+        }
+        
+
+        private void SatrtRowsSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void SourcesAndConsumersSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ConsumersDataSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

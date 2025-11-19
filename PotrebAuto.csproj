@@ -64,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Configuration\ConfigModel.cs" />
+    <Compile Include="Configuration\jsonModels\ConstantsConfig.cs" />
+    <Compile Include="Configuration\jsonModels\ConsumersConfig.cs" />
+    <Compile Include="Configuration\jsonModels\SACConfig.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -115,6 +119,9 @@
     <Content Include="ExcelTemplates\ConsumersTemplate.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Configuration\json\Consumers.json" />
+    <None Include="Configuration\json\Constants.json" />
+    <None Include="Configuration\json\SourcesAndConsumers.json" />
     <None Include="fix_encoding.bat" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -126,7 +133,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="Extensions\Filters\" />
     <Folder Include="Instructions\" />
   </ItemGroup>
