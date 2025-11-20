@@ -1,3 +1,5 @@
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
+using PotrebAuto.Configuration;
 using PotrebAuto.Extensions;
 using PotrebAuto.Models;
 using System;
@@ -19,23 +21,42 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Получаем первый лист из книги
                 var worksheet = package.GetWorksheet(1);
 
-                //// Кэшируем конфигурацию перед циклом
-                //var config = ConfigModel.MP;
-                //int startRow = config.StartRow;
-                //int isODPUCol = config.IsODPU;
-                //int sysPU_IdCol = config.SysPU_Id;
-                //int addressCol = config.Address;
-                //int q_CalcCol = config.Q_Calc;
-                //int dV_CalcCol = config.dV_Calc;
-                //int vNR_CalcCol = config.VNR_Calc;
-                //int loadTypeCol = config.LoadType;
-                //int buildingIdCol = config.BuildingId;
-                //int tu_AIIS_IdCol = config.TU_AIIS_Id;
+                // Кэшируем конфигурацию перед циклом
+                var config = ConfigModel.ConsumersConf;
+                var constConfig = ConfigModel.ConstantsConf;
+                int startDatesRow = constConfig.DatesRowStart;
+                int startDatesCol = constConfig.DatesColStart;
+                int startRow = constConfig.ConsumersDataRowStart;
+                int numberCol = config.Number;
+                int addressCol = config.Address;
+                int pu_GcalTotalCol = config.PU_GcalTotal;
+                int pu_WithVNR_GcalCol = config.PU_WithVNR_Gcal;
+                int zm_GcalTotalCol = config.ZM_GcalTotal;
+                int zm_WithAverage_GcalCol = config.ZM_WithAverage_Gcal;
+                int withBS_GcalCol = config.WithBS_Gcal;
+                int withRealLoadBS_GcalCol = config.WithRealLoadBS_Gcal;
+                int withRealLoadTU_GcalCol = config.WithRealLoadTU_Gcal;
+                int withNP_GcalCol = config.WithNP_Gcal;
+                int withCab_GcalCol = config.WithCab_Gcal;
+                int withKSN_GcalCol = config.WithKSN_Gcal;
+                int withRealLoad_FN_GcalCol = config.WithRealLoad_FN_Gcal;
+                int withDocAndKSN_GcalCol = config.WithDocAndKSN_Gcal;
+                int withDoc_GcalCol = config.WithDoc_Gcal;
+                int correctNotesCountCol = config.CorrectNotesCount;
+                int q_t_m_IsNullCol = config.Q_T_M_IsNull;
+                int actsBSCol = config.ActsBS;
+                int max_Min_Q_MCol = config.Max_Min_Q_M;
+                int isValid_VNRCol = config.IsValid_VNR;
+                int isValid_M1_M2Col = config.IsValid_M1_M2;
+                int isValid_M1_M2_2Col = config.IsValid_M1_M2_2;
+                int q_engCol = config.Q_eng;
+                int isValid_TCol = config.IsValid_T;
+                int daysValueCol = constConfig.DatesColStart;
 
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;
 
-                for (int row = 4; row <= rowCount; row++)
+                for (int row = startRow; row <= rowCount; row++)
                 {
                     try
                     {
@@ -44,38 +65,38 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
                         var data = new ConsumersDataObject
                         {
-                            Number = worksheet.Cells[row, 1].GetCellDTO(),
-                            Address = worksheet.Cells[row, 2].GetCellDTO(),
+                            Number = worksheet.Cells[row, numberCol].GetCellDTO(),
+                            Address = worksheet.Cells[row, addressCol].GetCellDTO(),
                             Id = worksheet.Cells[row, 3].GetCellDTO(),
-                            PU_GcalTotal = worksheet.Cells[row, 4].GetCellDTO(),
-                            PU_WithVNR_Gcal = worksheet.Cells[row, 5].GetCellDTO(),
-                            ZM_GcalTotal = worksheet.Cells[row, 6].GetCellDTO(),
-                            ZM_WithAverage_Gcal = worksheet.Cells[row, 7].GetCellDTO(),
-                            WithBS_Gcal = worksheet.Cells[row, 8].GetCellDTO(),
-                            WithRealLoadBS_Gcal = worksheet.Cells[row, 9].GetCellDTO(),
-                            WithRealLoadTU_Gcal = worksheet.Cells[row, 10].GetCellDTO(),
-                            WithNP_Gcal = worksheet.Cells[row, 11].GetCellDTO(),
-                            WithCab_Gcal = worksheet.Cells[row, 12].GetCellDTO(),
-                            WithKSN_Gcal = worksheet.Cells[row, 13].GetCellDTO(),
-                            WithRealLoad_FN_Gcal = worksheet.Cells[row, 14].GetCellDTO(),
-                            WithDocAndKSN_Gcal = worksheet.Cells[row, 15].GetCellDTO(),
-                            WithDoc_Gcal = worksheet.Cells[row, 16].GetCellDTO(),
-                            CorrectNotesCount = worksheet.Cells[row, 17].GetCellDTO(),
-                            Q_T_M_IsNull = worksheet.Cells[row, 18].GetCellDTO(),
-                            ActsBS = worksheet.Cells[row, 19].GetCellDTO(),
-                            Max_Min_Q_M = worksheet.Cells[row, 20].GetCellDTO(),
-                            IsValid_VNR = worksheet.Cells[row, 21].GetCellDTO(),
-                            IsValid_M1_M2 = worksheet.Cells[row, 22].GetCellDTO(),
-                            IsValid_M1_M2_2 = worksheet.Cells[row, 23].GetCellDTO(),
-                            Q_eng = worksheet.Cells[row, 24].GetCellDTO(),
-                            IsValid_T = worksheet.Cells[row, 25].GetCellDTO(),
-                            DaysValue = worksheet.GetMonthIndicationsList(row,26)
+                            PU_GcalTotal = worksheet.Cells[row, pu_GcalTotalCol].GetCellDTO(),
+                            PU_WithVNR_Gcal = worksheet.Cells[row, pu_WithVNR_GcalCol].GetCellDTO(),
+                            ZM_GcalTotal = worksheet.Cells[row, zm_GcalTotalCol].GetCellDTO(),
+                            ZM_WithAverage_Gcal = worksheet.Cells[row, zm_WithAverage_GcalCol].GetCellDTO(),
+                            WithBS_Gcal = worksheet.Cells[row, withBS_GcalCol].GetCellDTO(),
+                            WithRealLoadBS_Gcal = worksheet.Cells[row, withRealLoadBS_GcalCol].GetCellDTO(),
+                            WithRealLoadTU_Gcal = worksheet.Cells[row, withRealLoadTU_GcalCol].GetCellDTO(),
+                            WithNP_Gcal = worksheet.Cells[row, withNP_GcalCol].GetCellDTO(),
+                            WithCab_Gcal = worksheet.Cells[row, withCab_GcalCol].GetCellDTO(),
+                            WithKSN_Gcal = worksheet.Cells[row, withKSN_GcalCol].GetCellDTO(),
+                            WithRealLoad_FN_Gcal = worksheet.Cells[row, withRealLoad_FN_GcalCol].GetCellDTO(),
+                            WithDocAndKSN_Gcal = worksheet.Cells[row, withDocAndKSN_GcalCol].GetCellDTO(),
+                            WithDoc_Gcal = worksheet.Cells[row, withDoc_GcalCol].GetCellDTO(),
+                            CorrectNotesCount = worksheet.Cells[row, correctNotesCountCol].GetCellDTO(),
+                            Q_T_M_IsNull = worksheet.Cells[row, q_t_m_IsNullCol].GetCellDTO(),
+                            ActsBS = worksheet.Cells[row, actsBSCol].GetCellDTO(),
+                            Max_Min_Q_M = worksheet.Cells[row, max_Min_Q_MCol].GetCellDTO(),
+                            IsValid_VNR = worksheet.Cells[row, isValid_VNRCol].GetCellDTO(),
+                            IsValid_M1_M2 = worksheet.Cells[row, isValid_M1_M2Col].GetCellDTO(),
+                            IsValid_M1_M2_2 = worksheet.Cells[row, isValid_M1_M2_2Col].GetCellDTO(),
+                            Q_eng = worksheet.Cells[row, q_engCol].GetCellDTO(),
+                            IsValid_T = worksheet.Cells[row, isValid_TCol].GetCellDTO(),
+                            DaysValue = worksheet.GetMonthIndicationsList(row,daysValueCol)
 
                         };
 
-                        if (worksheet.Cells[1, 26].Value != null)
+                        if (worksheet.Cells[startDatesRow, startDatesCol].Value != null)
                         {
-                            data.DateList = worksheet.GetDateList(1, 26);
+                            data.DateList = worksheet.GetDateList(startDatesRow, startDatesCol);
                         }
 
                         result.Add(data);

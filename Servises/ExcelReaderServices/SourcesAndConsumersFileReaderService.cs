@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Servises.ExcelReaderServices
 {
@@ -19,23 +20,17 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Получаем первый лист из книги
                 var worksheet = package.GetWorksheet(1);
 
-                //// Кэшируем конфигурацию перед циклом
-                //var config = ConfigModel.MP;
-                //int startRow = config.StartRow;
-                //int isODPUCol = config.IsODPU;
-                //int sysPU_IdCol = config.SysPU_Id;
-                //int addressCol = config.Address;
-                //int q_CalcCol = config.Q_Calc;
-                //int dV_CalcCol = config.dV_Calc;
-                //int vNR_CalcCol = config.VNR_Calc;
-                //int loadTypeCol = config.LoadType;
-                //int buildingIdCol = config.BuildingId;
-                //int tu_AIIS_IdCol = config.TU_AIIS_Id;
+                // Кэшируем конфигурацию перед циклом
+                var config = ConfigModel.SACConf;
+                var constConfig = ConfigModel.ConstantsConf;
+                int startRow = constConfig.SACDataRowStart;
+                int tu_IdCol = config.TU_Id;
+                int obj_IdCol = config.Obj_Id;
 
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;
 
-                for (int row = 2; row <= rowCount; row++)
+                for (int row = startRow; row <= rowCount; row++)
                 {
                     try
                     {
@@ -45,8 +40,8 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         var data = new SourcesAndConsumersObject
                         {
 
-                            TU_Id = worksheet.SafeGetCellValue(row, 27),
-                            Obj_Id = worksheet.SafeGetCellValue(row, 28)
+                            TU_Id = worksheet.SafeGetCellValue(row, tu_IdCol),
+                            Obj_Id = worksheet.SafeGetCellValue(row, obj_IdCol)
 
                         };
 

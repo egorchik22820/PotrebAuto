@@ -9,11 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using PotrebAuto.Servises;
 using PotrebAuto.Models.DTO;
+using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Extensions
 {
     public static class WriteToExcelExtensions
     {
+        private readonly static int templateStartRow = ConfigModel.TemplateDATAStartRow;
+
+        private readonly static int templateDatesStartRow = ConfigModel.TemplateDatesStartRow;
+        private readonly static int templateDatesStartCol = ConfigModel.TemplateDatesStartCol;
+
         ///////////////////////////НАСТРОЙКА СТОЛБЦОВ В ШАБЛОНЕ///////////////////////////////////
 
 
@@ -24,7 +30,7 @@ namespace PotrebAuto.Extensions
             for (int i = 0; i < consumers.Count; i++)
             {
                 var consumer = consumers[i];
-                int row = i + 4;
+                int row = i + templateStartRow;
 
                 worksheet.Cells[row, 1].InsertToCell(consumer.Number);
                 worksheet.Cells[row, 2].InsertToCell(consumer.Address);
@@ -60,7 +66,7 @@ namespace PotrebAuto.Extensions
                 {
                     if (consumer.DaysValue[j] != null)
                     {
-                        worksheet.Cells[row, 29 + j + 1].InsertToCell(consumer.DaysValue[j]);// 29 - начало цветов в шаблоне
+                        worksheet.Cells[row, templateDatesStartCol + j].InsertToCell(consumer.DaysValue[j]);// 30 - начало цветов в шаблоне
                     }
 
                 }
@@ -71,35 +77,13 @@ namespace PotrebAuto.Extensions
             {
                 if (counter <= consumer.DateList.Count - 1)
                 {
-                    worksheet.Cells[1, 29 + counter + 1].InsertToCell(consumer.DateList[counter]);
+                    worksheet.Cells[templateDatesStartRow, templateDatesStartCol + counter].InsertToCell(consumer.DateList[counter]);
                     counter++;
                 }
             }
         }
 
-        public static void InsertToCell(this ExcelRange cell, CellDTO dto)// перенести в DataServices
-        {
-            if (dto == null)
-            {
-                cell.Value = string.Empty;
-                return;
-            }
-
-            // Сначала устанавливаем гиперссылку (если есть)
-            if (dto.Hyperlink != null)
-            {
-                cell.Hyperlink = dto.Hyperlink;
-            }
-
-            // Затем устанавливаем значение
-            cell.Value = dto.Value ?? string.Empty;
-
-            // Цвет фона
-            if (!string.IsNullOrEmpty(dto.BackGroundColorRgb))
-            {
-                DataServices.ApplyRgbColorToCell(cell, dto.BackGroundColorRgb);
-            }
-        }
+        
 
 
     }

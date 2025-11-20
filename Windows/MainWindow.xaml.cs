@@ -34,6 +34,7 @@ namespace PotrebAuto.Windows
         public MainWindow()
         {
             InitializeComponent();
+            Configuration.ConfigModel.LoadAllConfigurations();
         }
 
 

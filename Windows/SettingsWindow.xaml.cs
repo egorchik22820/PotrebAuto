@@ -138,6 +138,7 @@ namespace PotrebAuto.Windows
                 IsValid_M1_M2_2TextBox.Text = ConfigModel.ConsumersConf.IsValid_M1_M2_2.ToString();
                 Q_engTextBox.Text = ConfigModel.ConsumersConf.Q_eng.ToString();
                 IsValid_TTextBox.Text = ConfigModel.ConsumersConf.IsValid_T.ToString();
+                
 
                 // Заполняем поля для SourcesAndConsumers вкладки
                 TU_IdTextBox.Text = ConfigModel.SACConf.TU_Id.ToString();
@@ -149,6 +150,7 @@ namespace PotrebAuto.Windows
                 SACTableRowStartTextBox.Text = ConfigModel.ConstantsConf.SACTableRowStart.ToString();
                 SACDataRowStartTextBox.Text = ConfigModel.ConstantsConf.SACDataRowStart.ToString();
                 DatesColStartTextBox.Text = ConfigModel.ConstantsConf.DatesColStart.ToString();
+                DatesRowStartTextBox.Text = ConfigModel.ConstantsConf.DatesRowStart.ToString();
                 DaysInMonthTextBox.Text = ConfigModel.ConstantsConf.DaysInMonth.ToString();
             }
             catch (Exception ex)
@@ -200,24 +202,75 @@ namespace PotrebAuto.Windows
             {
                 var consumersConf = new ConsumersConfig
                 {
-                    TU_Id = int.Parse(TU_IdTextBox.Text),
-                    Obj_Id = int.Parse(Obj_IdTextBox.Text)
+                    Number = int.Parse(NumberTextBox.Text),
+                    Address = int.Parse(AddressTextBox.Text),
+                    Id = int.Parse(IdTextBox.Text),
+                    PU_GcalTotal = int.Parse(PU_GcalTotalTextBox.Text),
+                    PU_WithVNR_Gcal = int.Parse(PU_WithVNR_GcalTextBox.Text),
+                    ZM_GcalTotal = int.Parse(ZM_GcalTotalTextBox.Text),
+                    ZM_WithAverage_Gcal = int.Parse(ZM_WithAverage_GcalTextBox.Text),
+                    WithBS_Gcal = int.Parse(WithBS_GcalTextBox.Text),
+                    WithRealLoadBS_Gcal = int.Parse(WithRealLoadBS_GcalTextBox.Text),
+                    WithRealLoadTU_Gcal = int.Parse(WithRealLoadTU_GcalTextBox.Text),
+                    WithNP_Gcal = int.Parse(WithNP_GcalTextBox.Text),
+                    WithCab_Gcal = int.Parse(WithCab_GcalTextBox.Text),
+                    WithKSN_Gcal = int.Parse(WithKSN_GcalTextBox.Text),
+                    WithRealLoad_FN_Gcal = int.Parse(WithRealLoad_FN_GcalTextBox.Text),
+                    WithDocAndKSN_Gcal = int.Parse(WithDocAndKSN_GcalTextBox.Text),
+                    WithDoc_Gcal = int.Parse(WithDoc_GcalTextBox.Text),
+                    CorrectNotesCount = int.Parse(CorrectNotesCountTextBox.Text),
+                    Q_T_M_IsNull = int.Parse(Q_T_M_IsNullTextBox.Text),
+                    ActsBS = int.Parse(ActsBSTextBox.Text),
+                    Max_Min_Q_M = int.Parse(Max_Min_Q_MTextBox.Text),
+                    IsValid_VNR = int.Parse(IsValid_VNRTextBox.Text),
+                    IsValid_M1_M2 = int.Parse(IsValid_M1_M2TextBox.Text),
+                    IsValid_M1_M2_2 = int.Parse(IsValid_M1_M2_2TextBox.Text),
+                    Q_eng = int.Parse(Q_engTextBox.Text),
+                    IsValid_T = int.Parse(IsValid_TTextBox.Text)
                 };
 
                 ConfigModel.SaveConfig(ConfigModel._Consumers_ConfigPath, consumersConf);
-                MessageBox.Show("Настройки МП сохранены!", "Успех",
+                MessageBox.Show("Настройки потребителей сохранены!", "Успех",
                               MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранении настроек источников и потребителей: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка при сохранении настроек потребителей: {ex.Message}", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void TableSettingsSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            try
+            {
+                var constConf = new ConstantsConfig
+                {
+                    ConsumersTableRowStart = int.Parse(ConsumersTableRowStartTextBox.Text),
+                    ConsumersDataRowStart = int.Parse(ConsumersDataRowStartTextBox.Text),
+                    SACTableRowStart = int.Parse(SACTableRowStartTextBox.Text),
+                    SACDataRowStart = int.Parse(SACDataRowStartTextBox.Text),
+                    DatesColStart = int.Parse(DatesColStartTextBox.Text),
+                    DatesRowStart = int.Parse(DatesRowStartTextBox.Text),
+                    DaysInMonth = int.Parse(DaysInMonthTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, constConf);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек таблиц: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

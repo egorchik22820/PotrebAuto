@@ -14,7 +14,13 @@ namespace PotrebAuto.Configuration
         public readonly static string NoData = "Нет данных";
         public readonly static string TemplateSheetName = "Page 1";
         public readonly static int DaysInMonth_MAX = 35;
-        
+
+        // для шаблона
+        public readonly static int TemplateDatesStartRow = 1;
+        public readonly static int TemplateDatesStartCol = 30;
+
+        public readonly static int TemplateDATAStartRow = 4;
+        public readonly static int TemplateDATAStartCol = 1;
 
         // Текущие конфигурации (загружаются из JSON)
         public static ConstantsConfig ConstantsConf { get; set; } = new ConstantsConfig();

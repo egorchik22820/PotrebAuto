@@ -137,6 +137,7 @@
 
                         <Label Grid.Row="28" Grid.Column="0" Content="Т &lt; 0°С или Т &gt; 150°С:" Margin="0,5"/>
                         <TextBox Grid.Row="28" Grid.Column="1" x:Name="IsValid_TTextBox" Margin="5" Height="25"/>
+                        
 
                         <Button Grid.Row="29" Grid.Column="0" Grid.ColumnSpan="2"
                                 FontWeight="SemiBold"
@@ -214,6 +215,9 @@
 
                     <Label Grid.Row="5" Grid.Column="0" Content="Начало колонок с датами(номер колонки):" Margin="0,5"/>
                     <TextBox Grid.Row="5" Grid.Column="1" x:Name="DatesColStartTextBox" Margin="5" Height="25"/>
+
+                    <Label Grid.Row="6" Grid.Column="0" Content="Начало строк с датами(номер строки):" Margin="0,5"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="DatesRowStartTextBox" Margin="5" Height="25"/>
 
                     <Label Grid.Row="7" Grid.Column="0" Content="Дней в месяце:" Margin="0,5"/>
                     <TextBox Grid.Row="7" Grid.Column="1" x:Name="DaysInMonthTextBox" Margin="5" Height="25"/>

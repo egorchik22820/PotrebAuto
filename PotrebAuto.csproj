@@ -119,9 +119,15 @@
     <Content Include="ExcelTemplates\ConsumersTemplate.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Configuration\json\Consumers.json" />
-    <None Include="Configuration\json\Constants.json" />
-    <None Include="Configuration\json\SourcesAndConsumers.json" />
+    <Content Include="Configuration\json\Consumers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configuration\json\Constants.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configuration\json\SourcesAndConsumers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="fix_encoding.bat" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

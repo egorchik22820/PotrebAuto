@@ -1,12 +1,13 @@
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using PotrebAuto.Configuration;
 using PotrebAuto.Models;
+using PotrebAuto.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Servises
 {
@@ -53,6 +54,30 @@ namespace PotrebAuto.Servises
 
         }
 
-        
+        public static void InsertToCell(this ExcelRange cell, CellDTO dto)
+        {
+            if (dto == null)
+            {
+                cell.Value = string.Empty;
+                return;
+            }
+
+            // Сначала устанавливаем гиперссылку (если есть)
+            if (dto.Hyperlink != null)
+            {
+                cell.Hyperlink = dto.Hyperlink;
+            }
+
+            // Затем устанавливаем значение
+            cell.Value = dto.Value ?? string.Empty;
+
+            // Цвет фона
+            if (!string.IsNullOrEmpty(dto.BackGroundColorRgb))
+            {
+                ApplyRgbColorToCell(cell, dto.BackGroundColorRgb);
+            }
+        }
+
+
     }
 }

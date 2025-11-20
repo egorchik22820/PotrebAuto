@@ -14,6 +14,7 @@ namespace PotrebAuto.Extensions
     public static class ExcelReaderExtensions
     {
         private readonly static int _maxDays = ConfigModel.DaysInMonth_MAX;
+        private readonly static int daysCount = ConfigModel.ConstantsConf.DaysInMonth;
 
         //////////////
         public static ExcelPackage GetExcelPackage(string filePath)
@@ -62,7 +63,7 @@ namespace PotrebAuto.Extensions
         {
             var daysList = new List<CellDTO>(_maxDays);
 
-            for (int col = startColNumber; col < startColNumber + 31; col++)// 31 = кол-во дней в мес
+            for (int col = startColNumber; col < startColNumber + daysCount; col++)// 31 = кол-во дней в мес
             {
                 try
                 {
@@ -89,7 +90,7 @@ namespace PotrebAuto.Extensions
         {
             var dateList = new List<CellDTO>(_maxDays);
 
-            for (int col = startColNumber; col < startColNumber + 31; col++) // 31 = кол-во дней в мес
+            for (int col = startColNumber; col < startColNumber + daysCount; col++) // 31 = кол-во дней в мес
             {
                 try
                 {
