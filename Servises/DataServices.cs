@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Servises
 {
     public static class DataServices
     {
+        private readonly static string noData = ConfigModel.NoData;
         public static void ApplyRgbColorToCell(ExcelRange cell, string rgbColor)
         {
             if (string.IsNullOrEmpty(rgbColor)) return;
@@ -33,12 +35,12 @@ namespace PotrebAuto.Servises
         public static string TryGetIdFromHyperlink(this Uri hyperlink)
         {
             if (hyperlink == null)
-                return "Нет данных";
+                return noData;
 
             string url = hyperlink.ToString();
 
             if (string.IsNullOrWhiteSpace(url))
-                return "Нет данных";
+                return noData;
 
             url = url.TrimEnd('/');
 
@@ -47,7 +49,7 @@ namespace PotrebAuto.Servises
             if (lastSlashIndex >= 0 && lastSlashIndex < url.Length - 1)
                 return url.Substring(lastSlashIndex + 1);
 
-            return "Нет данных";
+            return noData;
 
         }
 

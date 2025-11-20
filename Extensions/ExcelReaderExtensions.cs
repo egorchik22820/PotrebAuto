@@ -1,4 +1,5 @@
 using OfficeOpenXml;
+using PotrebAuto.Configuration;
 using PotrebAuto.Models.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace PotrebAuto.Extensions
 {
     public static class ExcelReaderExtensions
     {
+        private readonly static int _maxDays = ConfigModel.DaysInMonth_MAX;
+
         //////////////
         public static ExcelPackage GetExcelPackage(string filePath)
         {
@@ -54,11 +57,12 @@ namespace PotrebAuto.Extensions
             return list?.Count(cell => cell?.BackGroundColorRgb != null) ?? 0;
         }
 
+        
         public static List<CellDTO> GetMonthIndicationsList(this ExcelWorksheet worksheet, int row, int startColNumber)
         {
-            var daysList = new List<CellDTO>(31);
+            var daysList = new List<CellDTO>(_maxDays);
 
-            for (int col = startColNumber; col < startColNumber + 31; col++)
+            for (int col = startColNumber; col < startColNumber + 31; col++)// 31 = кол-во дней в мес
             {
                 try
                 {
@@ -83,9 +87,9 @@ namespace PotrebAuto.Extensions
 
         public static List<CellDTO> GetDateList(this ExcelWorksheet worksheet, int row, int startColNumber)
         {
-            var dateList = new List<CellDTO>(31);
+            var dateList = new List<CellDTO>(_maxDays);
 
-            for (int col = startColNumber; col < startColNumber + 31; col++)
+            for (int col = startColNumber; col < startColNumber + 31; col++) // 31 = кол-во дней в мес
             {
                 try
                 {

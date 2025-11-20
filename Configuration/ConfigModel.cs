@@ -11,6 +11,11 @@ namespace PotrebAuto.Configuration
 {
     public static class ConfigModel
     {
+        public readonly static string NoData = "Нет данных";
+        public readonly static string TemplateSheetName = "Page 1";
+        public readonly static int DaysInMonth_MAX = 35;
+        
+
         // Текущие конфигурации (загружаются из JSON)
         public static ConstantsConfig ConstantsConf { get; set; } = new ConstantsConfig();
         public static ConsumersConfig ConsumersConf { get; set; } = new ConsumersConfig();

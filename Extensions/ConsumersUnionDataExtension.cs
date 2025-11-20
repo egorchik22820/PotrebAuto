@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using PotrebAuto.Models;
 using PotrebAuto.Models.DTO;
+using PotrebAuto.Configuration;
 using PotrebAuto.Servises;
 
 namespace PotrebAuto.Extensions
 {
     public static class ConsumersUnionDataExtension
     {
+        private readonly static string _noData = ConfigModel.NoData;
         public static List<ConsumersDataObject> GetUnionData(this List<ConsumersDataObject> consumers,
                                                                     List<SourcesAndConsumersObject> sourcesAndConsumers)
         {
@@ -23,7 +25,7 @@ namespace PotrebAuto.Extensions
             {
                 SACDict.TryGetValue(cm.TU_AIIS.Value.ToString(), out var sacItem);
 
-                cm.ObjectId = new CellDTO { Value = sacItem != null ? sacItem.Obj_Id : "Нет данных" };
+                cm.ObjectId = new CellDTO { Value = sacItem != null ? sacItem.Obj_Id : _noData };
                 cm.PO_AIIS_Total = new CellDTO { Value = cm.PU_GcalTotal.Digit + cm.ZM_GcalTotal.Digit };
                 cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
             }

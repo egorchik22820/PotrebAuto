@@ -29,6 +29,7 @@ namespace PotrebAuto.Windows
     {
         private string _selectedConsumersPath;
         private string _selectedConsumersAndSourcesPath;
+        private readonly int _maxPathLength = 20;
 
         public MainWindow()
         {
@@ -50,7 +51,7 @@ namespace PotrebAuto.Windows
             {
                 _selectedConsumersPath = openFileDialog.FileName;
                 var fileName = $"{Path.GetFileName(_selectedConsumersPath)}";
-                OriginalFileText.Text = fileName.Length <= 20 ? fileName : fileName.Substring(0, 20) + "...";
+                OriginalFileText.Text = fileName.Length <= _maxPathLength ? fileName : fileName.Substring(0, _maxPathLength) + "...";
                 OriginalFileText.Foreground = System.Windows.Media.Brushes.Black;
             }
         }
@@ -68,7 +69,7 @@ namespace PotrebAuto.Windows
             {
                 _selectedConsumersAndSourcesPath = openFileDialog.FileName;
                 var fileName = $"{Path.GetFileName(_selectedConsumersAndSourcesPath)}";
-                ConsumersAndSourcesFileText.Text = fileName.Length <= 20 ? fileName : fileName.Substring(0, 20) + "...";
+                ConsumersAndSourcesFileText.Text = fileName.Length <= _maxPathLength ? fileName : fileName.Substring(0, _maxPathLength) + "...";
                 ConsumersAndSourcesFileText.Foreground = System.Windows.Media.Brushes.Black;
             }
         }

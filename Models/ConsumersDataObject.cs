@@ -2,6 +2,7 @@ using PotrebAuto.Models.DTO;
 using PotrebAuto.Servises;
 using System;
 using System.Collections.Generic;
+using PotrebAuto.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,17 @@ namespace PotrebAuto.Models
 {
     public class ConsumersDataObject
     {
+        private static readonly int maxDays = ConfigModel.DaysInMonth_MAX;
         public ConsumersDataObject()
         {
-            DaysValue = new List<CellDTO>(35); // максимальное кол-во дней в месяце + 4
-            DateList = new List<CellDTO>(35);
+            DaysValue = new List<CellDTO>(maxDays);
+            DateList = new List<CellDTO>(maxDays);
         }
 
 
         public CellDTO Number {  get; set; }
         public CellDTO Address { get; set; }
-        public CellDTO TU_AIIS
+        public CellDTO TU_AIIS // опт
         {
             get
             {

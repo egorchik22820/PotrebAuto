@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PotrebAuto.Extensions;
+using PotrebAuto.Configuration;
 
 namespace PotrebAuto.Servises
 {
     public class ExcelInsertService
     {
+        private readonly static string templateSheetName = ConfigModel.TemplateSheetName;
+
         public static void ExcelDataInsert(string templatePath, string newFilePath,
                                             List<ConsumersDataObject> consumers)
         {
@@ -20,7 +23,7 @@ namespace PotrebAuto.Servises
 
             using (var package = new ExcelPackage(new FileInfo(newFilePath)))
             {
-                consumers.InsertData(package, "Page 1");
+                consumers.InsertData(package, templateSheetName);
 
                 package.Save();
             }

@@ -77,7 +77,7 @@ namespace PotrebAuto.Extensions
             }
         }
 
-        public static void InsertToCell(this ExcelRange cell, CellDTO dto)
+        public static void InsertToCell(this ExcelRange cell, CellDTO dto)// перенести в DataServices
         {
             if (dto == null)
             {
