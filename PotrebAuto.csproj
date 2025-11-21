@@ -68,6 +68,8 @@
     <Compile Include="Configuration\jsonModels\ConstantsConfig.cs" />
     <Compile Include="Configuration\jsonModels\ConsumersConfig.cs" />
     <Compile Include="Configuration\jsonModels\SACConfig.cs" />
+    <Compile Include="Extensions\Filters\ConsumersFilter.cs" />
+    <Compile Include="Extensions\Filters\SACFilter.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -139,7 +141,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\Filters\" />
     <Folder Include="Instructions\" />
   </ItemGroup>
   <ItemGroup>

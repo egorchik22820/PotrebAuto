@@ -34,7 +34,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 {
                     try
                     {
-                        if (worksheet.IsEmptyRow(row))
+                        if (worksheet.IsEmptyRow(row))/////////
                             break;
 
                         var data = new SourcesAndConsumersObject

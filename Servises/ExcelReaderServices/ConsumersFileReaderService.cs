@@ -56,6 +56,11 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;
 
+                if (worksheet.Cells[startDatesRow, startDatesCol].Value != null)// даты
+                {
+                    ConsumersDataObject.DateList = worksheet.GetDateList(startDatesRow, startDatesCol);
+                }
+
                 for (int row = startRow; row <= rowCount; row++)
                 {
                     try
@@ -94,10 +99,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
                         };
 
-                        if (worksheet.Cells[startDatesRow, startDatesCol].Value != null)
-                        {
-                            data.DateList = worksheet.GetDateList(startDatesRow, startDatesCol);
-                        }
+                        
 
                         result.Add(data);
                     }

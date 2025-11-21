@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using PotrebAuto.Extensions;
+using PotrebAuto.Extensions.Filters;
 using PotrebAuto.Models;
 using PotrebAuto.Servises;
 using PotrebAuto.Servises.ExcelReaderServices;
@@ -37,7 +38,18 @@ namespace PotrebAuto.Windows
             Configuration.ConfigModel.LoadAllConfigurations();
         }
 
-
+        private void OpenOutDirectory(string newFilePath)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{newFilePath}\"");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось открыть папку: {ex.Message}",
+                              "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
 
         private void OriginalFileBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +89,21 @@ namespace PotrebAuto.Windows
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(_selectedConsumersPath) || string.IsNullOrEmpty(_selectedConsumersAndSourcesPath))
+            {
+                MessageBox.Show("Сначала выберите необходимые файлы!", "Внимание",
+                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!File.Exists(_selectedConsumersPath) || !File.Exists(_selectedConsumersAndSourcesPath))
+            {
+                MessageBox.Show("Файл(ы) не найден(ы)!", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
             // Путь до шаблона и итоговой формы
             string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
             // Автоматическое сохранение в папку на рабочем столе
@@ -88,41 +115,55 @@ namespace PotrebAuto.Windows
 
             string newFilePath = Path.Combine(reportsFolder, "Потребители_ДАТА.xlsx");
 
-
-
-            List<ConsumersDataObject> consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath);
-
-            List<SourcesAndConsumersObject> sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath);
-
-            List<ConsumersDataObject> result = consumers.GetUnionData(sources);
-
-
-
-            // вставка в эксель
-            ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
-                                                result);
-
-            ReadyText.Text = "ГОТОВО";
-            ReadyText.Margin = new Thickness(10);
-
-            // Открываем папку с файлом
             try
             {
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{newFilePath}\"");
+                var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
+                                                                            .GetFiltered();
+
+                var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
+                                                                                                .GetFilteredDict();
+
+                var result = consumers.GetUnionData(sources);
+
+
+
+                // вставка в эксель
+                ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
+                                                    result);
+
+                ReadyText.Text = "ГОТОВО";
+                ReadyText.Margin = new Thickness(10);
+
+
+                // Открываем папку с файлом
+                OpenOutDirectory(newFilePath);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Не удалось открыть папку: {ex.Message}",
-                              "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Ошибка при обработке данных: {ex.Message}\n\nПроверьте:\n- Корректность выбранных файлов\n- Настройки столбцов",
+                              "Ошибка обработки", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            
 
 
         }
 
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settings = new SettingsWindow();
-            settings.Show();
+            var settingsWindow = Application.Current.Windows
+                .OfType<SettingsWindow>()
+                .FirstOrDefault();
+
+            if (settingsWindow == null)
+            {
+                settingsWindow = new SettingsWindow();
+                settingsWindow.Show();
+            }
+            else
+            {
+                settingsWindow.Activate();
+            }
         }
 
         private void instructionBtn_Click(object sender, RoutedEventArgs e)

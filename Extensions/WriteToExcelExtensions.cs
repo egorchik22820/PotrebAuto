@@ -75,9 +75,9 @@ namespace PotrebAuto.Extensions
             int counter = 0;
             foreach (var consumer in consumers)
             {
-                if (counter <= consumer.DateList.Count - 1)
+                if (counter <= ConsumersDataObject.DateList.Count - 1)
                 {
-                    worksheet.Cells[templateDatesStartRow, templateDatesStartCol + counter].InsertToCell(consumer.DateList[counter]);
+                    worksheet.Cells[templateDatesStartRow, templateDatesStartCol + counter].InsertToCell(ConsumersDataObject.DateList[counter]);
                     counter++;
                 }
             }

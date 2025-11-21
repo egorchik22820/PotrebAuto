@@ -42,10 +42,6 @@ namespace PotrebAuto.Windows
             // Проверяем все TextBox'ы в окне
             foreach (var textBox in FindVisualChildren<TextBox>(this))
             {
-                // Пропускаем TextBox для года (особое поле)
-                if (textBox.Name == "NakladCalcYearValueTextBox")
-                    continue;
-
                 if (Validation.GetHasError(textBox))
                     return false;
 

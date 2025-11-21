@@ -12,10 +12,10 @@ namespace PotrebAuto.Models
     public class ConsumersDataObject
     {
         private static readonly int maxDays = ConfigModel.DaysInMonth_MAX;
+        public static List<CellDTO> DateList = new List<CellDTO>(maxDays);
         public ConsumersDataObject()
         {
             DaysValue = new List<CellDTO>(maxDays);
-            DateList = new List<CellDTO>(maxDays);
         }
 
 
@@ -32,7 +32,6 @@ namespace PotrebAuto.Models
         public CellDTO ObjectId { get; set; } // added
         public CellDTO PO_AIIS_Total { get; set; }// added
         public CellDTO ColorDaysCount { get; set; } // added
-        public List<CellDTO> DateList { get; set; }// added
         public CellDTO Id { get; set; }
         public CellDTO PU_GcalTotal { get; set; }
         public CellDTO PU_WithVNR_Gcal { get; set; }

@@ -14,22 +14,28 @@ namespace PotrebAuto.Extensions
     {
         private readonly static string _noData = ConfigModel.NoData;
         public static List<ConsumersDataObject> GetUnionData(this List<ConsumersDataObject> consumers,
-                                                                    List<SourcesAndConsumersObject> sourcesAndConsumers)
+                                                     Dictionary<string, SourcesAndConsumersObject> SACDict)
         {
-            var SACDict = sourcesAndConsumers.GroupBy(x => x.TU_Id).ToDictionary(g => g.Key, g => g.First());// поменять архитектуру, не нужно создавать новый объект, разделить логику
-
-            var cons = consumers.Where(x => x.TU_AIIS.Value != null)
-                                .ToList();
-
-            foreach (var cm in cons)
+            foreach (var cm in consumers)
             {
-                SACDict.TryGetValue(cm.TU_AIIS.Value.ToString(), out var sacItem);
+                SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);
 
-                cm.ObjectId = new CellDTO { Value = sacItem != null ? sacItem.Obj_Id : _noData };
-                cm.PO_AIIS_Total = new CellDTO { Value = cm.PU_GcalTotal.Digit + cm.ZM_GcalTotal.Digit };
+                cm.ObjectId = new CellDTO { Value = sacItem?.Obj_Id ?? _noData };
+
+                // Сложение PU_GcalTotal и ZM_GcalTotal
+                cm.PO_AIIS_Total = new CellDTO
+                {
+                    Value = DataServices.AddDecimals(
+                        cm.PU_GcalTotal.Value,
+                        cm.ZM_GcalTotal.Value
+                    )
+                };
+
                 cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
             }
             return consumers;
         }
+
+        
     }
 }

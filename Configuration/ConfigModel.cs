@@ -16,10 +16,10 @@ namespace PotrebAuto.Configuration
         public readonly static int DaysInMonth_MAX = 35;
 
         // для шаблона
-        public readonly static int TemplateDatesStartRow = 1;
+        public readonly static int TemplateDatesStartRow = 2;
         public readonly static int TemplateDatesStartCol = 30;
 
-        public readonly static int TemplateDATAStartRow = 4;
+        public readonly static int TemplateDATAStartRow = 5;
         public readonly static int TemplateDATAStartCol = 1;
 
         // Текущие конфигурации (загружаются из JSON)

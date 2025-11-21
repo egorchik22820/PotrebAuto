@@ -79,5 +79,30 @@ namespace PotrebAuto.Servises
         }
 
 
+        public static decimal? AddDecimals(object value1, object value2)
+        {
+            var dec1 = ConvertToDecimal(value1);
+            var dec2 = ConvertToDecimal(value2);
+
+            if (dec1.HasValue && dec2.HasValue)
+                return dec1.Value + dec2.Value;
+
+            return dec1 ?? dec2; // Возвращаем то, что есть
+        }
+
+        private static decimal? ConvertToDecimal(object value)
+        {
+            if (value == null) return null;
+
+            try
+            {
+                return Convert.ToDecimal(value);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }
