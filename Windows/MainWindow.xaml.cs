@@ -6,6 +6,7 @@ using PotrebAuto.Servises;
 using PotrebAuto.Servises.ExcelReaderServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -168,7 +169,24 @@ namespace PotrebAuto.Windows
 
         private void instructionBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                // Путь к PDF файлу в выходной директории
+                string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Instructions", "Инструкция Потребители.pdf");
 
+                if (File.Exists(pdfPath))
+                {
+                    Process.Start(pdfPath);
+                }
+                else
+                {
+                    MessageBox.Show("PDF файл не найден!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при открытии PDF: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
