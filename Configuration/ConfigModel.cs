@@ -19,19 +19,26 @@ namespace PotrebAuto.Configuration
         public readonly static int TemplateDatesStartRow = 2;
         public readonly static int TemplateDatesStartCol = 30;
 
+        public readonly static int TemplateSecondDatesStartRow = 2;
+        public readonly static int TemplateSecondDatesStartCol = 71;
+
         public readonly static int TemplateDATAStartRow = 5;
         public readonly static int TemplateDATAStartCol = 1;
 
         // Текущие конфигурации (загружаются из JSON)
         public static ConstantsConfig ConstantsConf { get; set; } = new ConstantsConfig();
         public static ConsumersConfig ConsumersConf { get; set; } = new ConsumersConfig();
+        public static Consumers_2Config Consumers_2Conf { get; set; } = new Consumers_2Config();
         public static SACConfig SACConf { get; set; } = new SACConfig();
+        public static GiTConfig GiTConf { get; set; } = new GiTConfig();
 
 
         // пути к исходным json в проекте
         public readonly static string _Constants_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Constants.json");
         public readonly static string _Consumers_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Consumers.json");
+        public readonly static string _Consumers_2_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Consumers_2.json");
         public readonly static string _SAC_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "SourcesAndConsumers.json");
+        public readonly static string _GiT_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "GiT.json");
 
 
         //Метод для загрузки всех конфигураций при старте приложения
@@ -41,7 +48,9 @@ namespace PotrebAuto.Configuration
             {
                 ConstantsConf = LoadConfig<ConstantsConfig>(_Constants_ConfigPath);
                 ConsumersConf = LoadConfig<ConsumersConfig>(_Consumers_ConfigPath);
+                Consumers_2Conf = LoadConfig<Consumers_2Config>(_Consumers_2_ConfigPath);
                 SACConf = LoadConfig<SACConfig>(_SAC_ConfigPath);
+                GiTConf = LoadConfig<GiTConfig>(_GiT_ConfigPath);
             }
             catch (Exception ex)
             {
@@ -61,8 +70,14 @@ namespace PotrebAuto.Configuration
                 case var path when path == _Consumers_ConfigPath:
                     ConsumersConf = config as ConsumersConfig;
                     break;
+                case var path when path == _Consumers_2_ConfigPath:
+                    Consumers_2Conf = config as Consumers_2Config;
+                    break;
                 case var path when path == _SAC_ConfigPath:
                     SACConf = config as SACConfig;
+                    break;
+                case var path when path == _GiT_ConfigPath:
+                    GiTConf = config as GiTConfig;
                     break;
             }
         }

@@ -104,9 +104,13 @@
     <Compile Include="Configuration\ConfigModel.cs" />
     <Compile Include="Configuration\jsonModels\ConstantsConfig.cs" />
     <Compile Include="Configuration\jsonModels\ConsumersConfig.cs" />
+    <Compile Include="Configuration\jsonModels\Consumers_2Config.cs" />
+    <Compile Include="Configuration\jsonModels\GiTConfig.cs" />
     <Compile Include="Configuration\jsonModels\SACConfig.cs" />
     <Compile Include="Extensions\Filters\ConsumersFilter.cs" />
     <Compile Include="Extensions\Filters\SACFilter.cs" />
+    <Compile Include="Models\GiTDataObject.cs" />
+    <Compile Include="Servises\ExcelReaderServices\GiTFileReaderService.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -167,6 +171,11 @@
     <Content Include="Configuration\json\SourcesAndConsumers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ExcelTemplates\ConsumersTemplateSecond.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Configuration\json\Consumers_2.json" />
+    <None Include="Configuration\json\GiT.json" />
     <None Include="fix_encoding.bat" />
     <Content Include="Instructions\Инструкция Потребители.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

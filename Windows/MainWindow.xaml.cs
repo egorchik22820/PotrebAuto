@@ -30,7 +30,9 @@ namespace PotrebAuto.Windows
     public partial class MainWindow : Window
     {
         private string _selectedConsumersPath;
+        private string _selectedSecondConsumersPath;
         private string _selectedConsumersAndSourcesPath;
+        private string _selectedGiTPath;
         private readonly int _maxPathLength = 20;
 
         public MainWindow()
@@ -70,6 +72,24 @@ namespace PotrebAuto.Windows
             }
         }
 
+        private void OriginalSecondFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
+                Title = "Выберете дополнительный исходный файл",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _selectedSecondConsumersPath = openFileDialog.FileName;
+                var fileName = $"{Path.GetFileName(_selectedSecondConsumersPath)}";
+                OriginalSecondFileText.Text = fileName.Length <= _maxPathLength ? fileName : fileName.Substring(0, _maxPathLength) + "...";
+                OriginalSecondFileText.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
+
         private void ConsumersAndSourcesFileBtn_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -87,6 +107,26 @@ namespace PotrebAuto.Windows
                 ConsumersAndSourcesFileText.Foreground = System.Windows.Media.Brushes.Black;
             }
         }
+
+        private void GiTFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
+                Title = "Выберете ГиТ файл",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _selectedGiTPath = openFileDialog.FileName;
+                var fileName = $"{Path.GetFileName(_selectedGiTPath)}";
+                GiTFileText.Text = fileName.Length <= _maxPathLength ? fileName : fileName.Substring(0, _maxPathLength) + "...";
+                GiTFileText.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
+
+
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
@@ -116,8 +156,12 @@ namespace PotrebAuto.Windows
 
             string newFilePath = Path.Combine(reportsFolder, "Потребители_ДАТА.xlsx");
 
+
+
+            // вот тут свитч вьебать на проверку доп файла
             try
             {
+
                 var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
                                                                             .GetFiltered();
 
@@ -188,5 +232,7 @@ namespace PotrebAuto.Windows
                 MessageBox.Show($"Ошибка при открытии PDF: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        
     }
 }

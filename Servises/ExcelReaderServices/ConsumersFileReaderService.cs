@@ -112,5 +112,63 @@ namespace PotrebAuto.Servises.ExcelReaderServices
 
             return result;
         }
+
+        public static List<ConsumersDataObject> ReadExcelFileExtra(string filePath)
+        {
+            var result = new List<ConsumersDataObject>();
+
+            using (var package = ExcelReaderExtensions.GetExcelPackage(filePath))
+            {
+                // Получаем первый лист из книги
+                var worksheet = package.GetWorksheet(1);
+
+                // Кэшируем конфигурацию перед циклом
+                var config = ConfigModel.Consumers_2Conf;
+                var constConfig = ConfigModel.ConstantsConf;
+                int startDatesRow = constConfig.DatesRowStart;
+                int startDatesCol = constConfig.DatesColStart;
+                int startRow = constConfig.Consumers_2DataRowStart;
+                int addressCol = config.Address;
+                int pu_GcalTotalCol = config.PU_GcalTotal;
+                int zm_GcalTotalCol = config.ZM_GcalTotal;
+                int daysValueCol = constConfig.DatesColStart;
+
+                // Определяем количество строк с данными
+                int rowCount = worksheet.Dimension.Rows;
+
+                if (worksheet.Cells[startDatesRow, startDatesCol].Value != null)// даты
+                {
+                    ConsumersDataObject.DateList = worksheet.GetDateList(startDatesRow, startDatesCol);
+                }
+
+                for (int row = startRow; row <= rowCount; row++)
+                {
+                    try
+                    {
+                        if (worksheet.IsEmptyRow(row))
+                            break;
+
+                        var data = new ConsumersDataObject
+                        {
+                            Address = worksheet.Cells[row, addressCol].GetCellDTO(),
+                            PU_GcalTotal = worksheet.Cells[row, pu_GcalTotalCol].GetCellDTO(),
+                            ZM_GcalTotal = worksheet.Cells[row, zm_GcalTotalCol].GetCellDTO(),
+                            DaysValue = worksheet.GetMonthIndicationsList(row, daysValueCol)
+
+                        };
+
+
+
+                        result.Add(data);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Ошибка чтения строки {row}: {ex.Message}");
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
