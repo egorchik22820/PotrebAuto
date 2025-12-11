@@ -104,15 +104,23 @@ namespace PotrebAuto.Extensions
 
                 worksheet.Cells[row, 1].InsertToCell(consumer.Number);
                 worksheet.Cells[row, 2].InsertToCell(consumer.Address);
+                worksheet.Cells[row, 3].InsertToCell(consumer.CityGiT);
+                worksheet.Cells[row, 4].InsertToCell(consumer.City);
                 worksheet.Cells[row, 3].InsertToCell(consumer.TU_AIIS);
+                worksheet.Cells[row, 6].InsertToCell(consumer.BuildingType);
                 worksheet.Cells[row, 4].InsertToCell(consumer.ObjectId);
                 worksheet.Cells[row, 5].InsertToCell(consumer.PO_AIIS_Total);
                 worksheet.Cells[row, 6].InsertToCell(consumer.ColorDaysCount);
+                worksheet.Cells[row, 11].InsertToCell(consumer.PO_AIIS_Total_2);
+                worksheet.Cells[row, 12].InsertToCell(consumer.ColorDaysCount_2);
                 worksheet.Cells[row, 7].InsertToCell(consumer.Id);
                 worksheet.Cells[row, 8].InsertToCell(consumer.PU_GcalTotal);
                 worksheet.Cells[row, 9].InsertToCell(consumer.PU_WithVNR_Gcal);
                 worksheet.Cells[row, 10].InsertToCell(consumer.ZM_GcalTotal);
                 worksheet.Cells[row, 11].InsertToCell(consumer.ZM_WithAverage_Gcal);
+                worksheet.Cells[row, 17].InsertToCell(consumer.PU_GcalTotal_2);
+                worksheet.Cells[row, 18].InsertToCell(consumer.ZM_GcalTotal_2);
+
                 worksheet.Cells[row, 12].InsertToCell(consumer.WithBS_Gcal);
                 worksheet.Cells[row, 13].InsertToCell(consumer.WithRealLoadBS_Gcal);
                 worksheet.Cells[row, 14].InsertToCell(consumer.WithRealLoadTU_Gcal);
@@ -140,6 +148,15 @@ namespace PotrebAuto.Extensions
                     }
 
                 }
+
+                for (int j = 0; j < consumer.DaysValue_2.Count; j++)
+                {
+                    if (consumer.DaysValue_2[j] != null)
+                    {
+                        worksheet.Cells[row, templateSecondDatesStartCol + j].InsertToCell(consumer.DaysValue_2[j]);// 30 - начало цветов в шаблоне
+                    }
+
+                }
             }
 
             int counter = 0;
@@ -148,6 +165,16 @@ namespace PotrebAuto.Extensions
                 if (counter <= ConsumersDataObject.DateList.Count - 1)
                 {
                     worksheet.Cells[templateSecondDatesStartRow, templateSecondDatesStartCol + counter].InsertToCell(ConsumersDataObject.DateList[counter]);
+                    counter++;
+                }
+            }
+
+            counter = 0;
+            foreach (var consumer in consumers)
+            {
+                if (counter <= ConsumersDataObject.DateList_2.Count - 1)
+                {
+                    worksheet.Cells[templateSecondDatesStartRow, templateSecondDatesStartCol + counter].InsertToCell(ConsumersDataObject.DateList_2[counter]);
                     counter++;
                 }
             }
