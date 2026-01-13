@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace PotrebAuto.Models
 {
-    public class GiTDataObject
+    public class QlickDataObject
     {
-        public CellDTO City { get; set; }
+        public CellDTO BuildingGUID { get; set; }
         public CellDTO BuildingId { get; set; }
-        public CellDTO BuildingType { get; set; }
     }
 }

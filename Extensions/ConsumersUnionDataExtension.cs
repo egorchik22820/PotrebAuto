@@ -36,6 +36,27 @@ namespace PotrebAuto.Extensions
             return consumers;
         }
 
-        
+        public static List<ConsumersDataObject> GetUnionDataExtra(this List<ConsumersDataObject> consumers,
+                                                     Dictionary<string, SourcesAndConsumersObject> SACDict)
+        {
+            foreach (var cm in consumers)
+            {
+                SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);
+
+                cm.ObjectId = new CellDTO { Value = sacItem?.Obj_Id ?? _noData };
+
+                // Сложение PU_GcalTotal и ZM_GcalTotal
+                cm.PO_AIIS_Total = new CellDTO
+                {
+                    Value = DataServices.AddDecimals(
+                        cm.PU_GcalTotal.Value,
+                        cm.ZM_GcalTotal.Value
+                    )
+                };
+
+                cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
+            }
+            return consumers;
+        }
     }
 }

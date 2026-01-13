@@ -41,6 +41,7 @@ namespace PotrebAuto.Models
         public CellDTO City { get; set; }
         public CellDTO CityGiT { get; set; }
         public CellDTO BuildingType { get; set; }
+        public CellDTO BuildingId { get; set; }
 
         public CellDTO PO_AIIS_Total_2 { get; set; }
         public CellDTO ColorDaysCount_2 { get; set; }

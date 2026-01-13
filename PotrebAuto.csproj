@@ -108,9 +108,12 @@
     <Compile Include="Configuration\jsonModels\GiTConfig.cs" />
     <Compile Include="Configuration\jsonModels\SACConfig.cs" />
     <Compile Include="Extensions\Filters\ConsumersFilter.cs" />
+    <Compile Include="Extensions\Filters\QlickFilter.cs" />
     <Compile Include="Extensions\Filters\SACFilter.cs" />
     <Compile Include="Models\GiTDataObject.cs" />
+    <Compile Include="Models\QlickDataObject.cs" />
     <Compile Include="Servises\ExcelReaderServices\GiTFileReaderService.cs" />
+    <Compile Include="Servises\ExcelReaderServices\QlickReaderService.cs" />
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

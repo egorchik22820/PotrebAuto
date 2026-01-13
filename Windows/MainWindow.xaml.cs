@@ -146,7 +146,9 @@ namespace PotrebAuto.Windows
 
 
             // Путь до шаблона и итоговой формы
-            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
+            //string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
+            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplateSecond.xlsx");
+
             // Автоматическое сохранение в папку на рабочем столе
             string reportsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Потребители");
 
@@ -165,19 +167,32 @@ namespace PotrebAuto.Windows
                 var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
                                                                             .GetFiltered();
 
+                var consumersSecond = ConsumersFileReaderService.ReadExcelFileExtra(_selectedSecondConsumersPath)
+                                                                            .GetFiltered();
+
                 var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
                                                                                                 .GetFilteredDict();
 
+                var QlickData = QlickReaderService.ReadExcelFile(_selectedConsumersPath)
+                                                                    .GetFiltered();
+
+
+
                 var result = consumers.GetUnionData(sources);
+                var resultSecond = consumersSecond.GetUnionData(sources);
 
 
 
                 // вставка в эксель
-                ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
+                //ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
+                //                                    result);
+
+                ExcelInsertService.ExcelDataInsertExtra(templatePath, newFilePath,
                                                     result);
 
+
                 ReadyText.Text = "ГОТОВО";
-                ReadyText.Margin = new Thickness(10);
+                ReadyText.Margin = new Thickness(7);
 
 
                 // Открываем папку с файлом
@@ -189,7 +204,6 @@ namespace PotrebAuto.Windows
                               "Ошибка обработки", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            
 
 
         }

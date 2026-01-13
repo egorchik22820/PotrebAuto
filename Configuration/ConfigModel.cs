@@ -19,6 +19,9 @@ namespace PotrebAuto.Configuration
         public readonly static int TemplateDatesStartRow = 2;
         public readonly static int TemplateDatesStartCol = 30;
 
+        public readonly static int TemplateSecondDatesStartRow_FirstDates = 2;
+        public readonly static int TemplateSecondDatesStartCol_FirstDates = 38;
+
         public readonly static int TemplateSecondDatesStartRow = 2;
         public readonly static int TemplateSecondDatesStartCol = 71;
 
