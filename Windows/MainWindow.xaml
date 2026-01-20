@@ -187,23 +187,39 @@
                                Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
                                />
                 </StackPanel>
-                
-                
 
-                <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
 
-                    <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
-                            FontWeight="DemiBold"
-                            Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
-                            Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
-                            />
+                <StackPanel HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
 
-                    <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
-                               FontWeight="DemiBold"
-                               Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
-                               />
+                    <StackPanel>
+
+                        <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
+                                    FontWeight="DemiBold"
+                                    Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
+                                    Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
+                                    />
+
+                        <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
+                                       FontWeight="DemiBold"
+                                       Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                       />
+                    </StackPanel>
+
+                    <StackPanel>
+
+                        <Button x:Name="QlickFileBtn" Content="Qlick файл"
+                                    FontWeight="DemiBold"
+                                    Click="QlickFileBtn_Click" Margin="5" 
+                                    Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
+                                    />
+
+                        <TextBlock x:Name="QlickFileText" Margin="5" TextWrapping="Wrap"
+                                       FontWeight="DemiBold"
+                                       Text="Файл не выбран" Foreground="#FF122525" HorizontalAlignment="Center"
+                                       />
+                    </StackPanel>
                 </StackPanel>
-
+                
                 <StackPanel HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3">
                     <TextBlock x:Name="ReadyText" Margin="0" TextWrapping="Wrap"
                                FontWeight="Bold"

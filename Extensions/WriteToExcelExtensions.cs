@@ -96,17 +96,14 @@ namespace PotrebAuto.Extensions
 
 
 
-        public static void InsertDataExtra(this List<ConsumersDataObject> consumers, List<ConsumersDataObject> consumersSecond,
-                                                                    List<GiTDataObject> GiTData, List<QlickDataObject> qlickData,
-                                                                    ExcelPackage package, string sheetName)
+        public static void InsertDataExtra(this List<ConsumersDataObject> consumers,
+                                                    ExcelPackage package, string sheetName)
         {
             var worksheet = package.Workbook.Worksheets[sheetName];
 
             for (int i = 0; i < consumers.Count; i++)
             {
                 var consumer = consumers[i];
-                var consumerSecond = consumersSecond.Where(x => x.TU_AIIS == consumer.TU_AIIS);
-                var GiT = GiTData.Where();
                 int row = i + templateStartRow;
 
                 worksheet.Cells[row, 1].InsertToCell(consumer.Number);
@@ -114,15 +111,15 @@ namespace PotrebAuto.Extensions
                 worksheet.Cells[row, 3].InsertToCell(consumer.CityGiT);
                 worksheet.Cells[row, 4].InsertToCell(consumer.City);
                 worksheet.Cells[row, 5].InsertToCell(consumer.TU_AIIS);
-                worksheet.Cells[row, 6].InsertToCell(GiT.BuildingId);// лучше ставить из ГиТ
+                worksheet.Cells[row, 6].InsertToCell(consumer.BuildingId);// лучше ставить из ГиТ
                 worksheet.Cells[row, 7].InsertToCell(consumer.BuildingType);
                 worksheet.Cells[row, 8].InsertToCell(consumer.ObjectId);
 
                 worksheet.Cells[row, 9].InsertToCell(consumer.PO_AIIS_Total);// из 1 файла ПО
                 worksheet.Cells[row, 10].InsertToCell(consumer.ColorDaysCount);// из 1 файла цветные
 
-                worksheet.Cells[row, 11].InsertToCell(consumerSecond.PO_AIIS_Total_2);// из 2 файла ПО
-                worksheet.Cells[row, 12].InsertToCell(consumerSecond.ColorDaysCount_2);// из 2 файла цветные
+                worksheet.Cells[row, 11].InsertToCell(consumer.PO_AIIS_Total_2);// из 2 файла ПО
+                worksheet.Cells[row, 12].InsertToCell(consumer.ColorDaysCount_2);// из 2 файла цветные
 
                 worksheet.Cells[row, 13].InsertToCell(consumer.Id);
 
@@ -130,8 +127,8 @@ namespace PotrebAuto.Extensions
                 worksheet.Cells[row, 15].InsertToCell(consumer.PU_WithVNR_Gcal);
                 worksheet.Cells[row, 16].InsertToCell(consumer.ZM_GcalTotal); // из 1 файла ЗМ
 
-                worksheet.Cells[row, 17].InsertToCell(consumerSecond.PU_GcalTotal_2);// из 2 файла ПУ
-                worksheet.Cells[row, 18].InsertToCell(consumerSecond.ZM_GcalTotal_2);// из 2 файла ЗМ
+                worksheet.Cells[row, 17].InsertToCell(consumer.PU_GcalTotal_2);// из 2 файла ПУ
+                worksheet.Cells[row, 18].InsertToCell(consumer.ZM_GcalTotal_2);// из 2 файла ЗМ
 
                 worksheet.Cells[row, 19].InsertToCell(consumer.ZM_WithAverage_Gcal);
                 worksheet.Cells[row, 20].InsertToCell(consumer.WithBS_Gcal);

@@ -30,8 +30,8 @@ namespace PotrebAuto.Servises
         }
 
         public static void ExcelDataInsertExtra(string templatePath, string newFilePath,
-                                            List<ConsumersDataObject> consumers, List<ConsumersDataObject> consumersSecond,
-                                            List<QlickDataObject> QlickData, List<SourcesAndConsumersObject> sources)
+                                            List<ConsumersDataObject> consumers, Dictionary<string, ConsumersDataObject> consumersSecond,
+                                            Dictionary<string, QlickDataObject> QlickData, Dictionary<string, SourcesAndConsumersObject> sources)
         {
 
             CopyTemplate(templatePath, newFilePath);

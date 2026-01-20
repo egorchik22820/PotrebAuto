@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PotrebAuto.Servises;
 
 namespace PotrebAuto.Servises.ExcelReaderServices
 {
@@ -31,7 +32,7 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;
 
-                for (int row = 3; row <= rowCount; row++)
+                for (int row = 2; row <= rowCount; row++)
                 {
                     try
                     {
@@ -41,8 +42,8 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         var data = new QlickDataObject
                         {
 
-                            BuildingGUID = worksheet.SafeGetCellValue(row, 2),
-                            BuildingId = worksheet.SafeGetCellValue(row, 3)
+                            BuildingGUID = worksheet.Cells[row, 2].GetCellDTO().TryGetIdFromIdWithBase(),
+                            BuildingId = worksheet.Cells[row, 3].GetCellDTO()
 
                         };
 

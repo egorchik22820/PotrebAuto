@@ -6,6 +6,7 @@ using PotrebAuto.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PotrebAuto.Extensions;
 
 namespace PotrebAuto.Models
 {
@@ -34,8 +35,22 @@ namespace PotrebAuto.Models
             }
         } // added
         public CellDTO ObjectId { get; set; } // added
-        public CellDTO PO_AIIS_Total { get; set; }// added
-        public CellDTO ColorDaysCount { get; set; } // added
+        public CellDTO PO_AIIS_Total
+        {
+            get
+            {
+                return new CellDTO { Value = DataServices.AddDecimals(
+                        PU_GcalTotal.Value,
+                        ZM_GcalTotal.Value)};
+            }
+        }// added
+        public CellDTO ColorDaysCount
+        {
+            get
+            {
+                return new CellDTO { Value = DaysValue?.GetColorDaysCount() };
+            }
+        }// added
 
         // for new
         public CellDTO City { get; set; }

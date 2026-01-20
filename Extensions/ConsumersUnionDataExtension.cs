@@ -22,39 +22,46 @@ namespace PotrebAuto.Extensions
 
                 cm.ObjectId = new CellDTO { Value = sacItem?.Obj_Id ?? _noData };
 
-                // Сложение PU_GcalTotal и ZM_GcalTotal
-                cm.PO_AIIS_Total = new CellDTO
-                {
-                    Value = DataServices.AddDecimals(
-                        cm.PU_GcalTotal.Value,
-                        cm.ZM_GcalTotal.Value
-                    )
-                };
-
-                cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
             }
             return consumers;
         }
 
-        public static List<ConsumersDataObject> GetUnionDataExtra(this List<ConsumersDataObject> consumers,
-                                                     Dictionary<string, SourcesAndConsumersObject> SACDict)
+        public static List<ConsumersDataObject> GetUnionDataExtra(this List<ConsumersDataObject> consumers, Dictionary<string, ConsumersDataObject> consumersSecond,
+                                                                     Dictionary<string, SourcesAndConsumersObject> SACDict,
+                                                                     Dictionary<string, GiTDataObject> GiTData,
+                                                                     Dictionary<string, QlickDataObject> qlickData)
         {
+
             foreach (var cm in consumers)
             {
+
+                consumersSecond.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var secondItem);
+
+                cm.PO_AIIS_Total_2 = new CellDTO { Value = secondItem?.PO_AIIS_Total.Value ?? _noData };
+                cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount.Value ?? _noData };
+                //cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount.Value ?? _noData };
+                cm.PU_GcalTotal_2 = new CellDTO { Value = secondItem?.PU_GcalTotal.Value ?? _noData };
+                cm.ZM_GcalTotal_2 = new CellDTO { Value = secondItem?.ZM_GcalTotal.Value ?? _noData };
+
+
                 SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);
 
                 cm.ObjectId = new CellDTO { Value = sacItem?.Obj_Id ?? _noData };
 
-                // Сложение PU_GcalTotal и ZM_GcalTotal
-                cm.PO_AIIS_Total = new CellDTO
-                {
-                    Value = DataServices.AddDecimals(
-                        cm.PU_GcalTotal.Value,
-                        cm.ZM_GcalTotal.Value
-                    )
-                };
 
-                cm.ColorDaysCount = new CellDTO { Value = cm.DaysValue.GetColorDaysCount() };
+
+                qlickData.TryGetValue(cm.ObjectId.Value?.ToString(), out var qlickItem);
+
+                cm.BuildingId = new CellDTO { Value = qlickItem?.BuildingId.Value ?? _noData };
+
+
+                GiTData.TryGetValue(cm.BuildingId.Value?.ToString(), out var GiTItem);
+                
+                cm.BuildingType = new CellDTO { Value = GiTItem?.BuildingType.Value ?? _noData };
+                cm.CityGiT = new CellDTO { Value = GiTItem?.City.Value ?? _noData };
+
+
+                
             }
             return consumers;
         }

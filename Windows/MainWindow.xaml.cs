@@ -33,6 +33,7 @@ namespace PotrebAuto.Windows
         private string _selectedSecondConsumersPath;
         private string _selectedConsumersAndSourcesPath;
         private string _selectedGiTPath;
+        private string _selectedQlickPath;
         private readonly int _maxPathLength = 20;
 
         public MainWindow()
@@ -126,7 +127,23 @@ namespace PotrebAuto.Windows
             }
         }
 
+        private void QlickFileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
+                Title = "Выберете файл с идентификатором объекта и кодом смтроения",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                _selectedQlickPath = openFileDialog.FileName;
+                var fileName = $"{Path.GetFileName(_selectedQlickPath)}";
+                QlickFileText.Text = fileName.Length <= _maxPathLength ? fileName : fileName.Substring(0, _maxPathLength) + "...";
+                QlickFileText.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
@@ -163,23 +180,27 @@ namespace PotrebAuto.Windows
             // вот тут свитч вьебать на проверку доп файла
             try
             {
+                var GiTData = GiTFileReaderService.ReadExcelFile(_selectedGiTPath)
+                                                                    .GetFilteredDict();
 
                 var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
                                                                             .GetFiltered();
 
                 var consumersSecond = ConsumersFileReaderService.ReadExcelFileExtra(_selectedSecondConsumersPath)
-                                                                            .GetFiltered();
+                                                                            .GetFilteredDict();
 
                 var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
                                                                                                 .GetFilteredDict();
 
-                var QlickData = QlickReaderService.ReadExcelFile(_selectedConsumersPath)
-                                                                    .GetFiltered();
+                var qlickData = QlickReaderService.ReadExcelFile(_selectedQlickPath)
+                                                                    .GetFilteredDict();
+
+                
 
 
-
-                var result = consumers.GetUnionData(sources);
-                var resultSecond = consumersSecond.GetUnionData(sources);
+                // хзхз
+                var result = consumers.GetUnionDataExtra(consumersSecond, sources, GiTData, qlickData);
+                //var resultSecond = consumersSecond.GetUnionData(sources);
 
 
 
@@ -188,7 +209,7 @@ namespace PotrebAuto.Windows
                 //                                    result);
 
                 ExcelInsertService.ExcelDataInsertExtra(templatePath, newFilePath,
-                                                    result);
+                                                    result, consumersSecond, qlickData, sources);
 
 
                 ReadyText.Text = "ГОТОВО";

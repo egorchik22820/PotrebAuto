@@ -41,9 +41,9 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         var data = new GiTDataObject
                         {
 
-                            BuildingId = worksheet.SafeGetCellValue(row, buildingId),
-                            BuildingType = worksheet.SafeGetCellValue(row, buildingType),
-                            City = worksheet.SafeGetCellValue(row, city)
+                            BuildingId = worksheet.Cells[row, buildingId].GetCellDTO(),
+                            BuildingType = worksheet.Cells[row, buildingType].GetCellDTO(),
+                            City = worksheet.Cells[row, city].GetCellDTO()
 
                         };
 
