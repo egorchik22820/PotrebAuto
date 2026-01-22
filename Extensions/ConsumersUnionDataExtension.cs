@@ -13,6 +13,7 @@ namespace PotrebAuto.Extensions
     public static class ConsumersUnionDataExtension
     {
         private readonly static string _noData = ConfigModel.NoData;
+        private readonly static string _empty = string.Empty;
         public static List<ConsumersDataObject> GetUnionData(this List<ConsumersDataObject> consumers,
                                                      Dictionary<string, SourcesAndConsumersObject> SACDict)
         {
@@ -35,13 +36,13 @@ namespace PotrebAuto.Extensions
             foreach (var cm in consumers)
             {
 
-                consumersSecond.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var secondItem);
+                consumersSecond.TryGetValue(cm.TU_AIIS?.Value?.ToString(), out var secondItem);
 
-                cm.PO_AIIS_Total_2 = new CellDTO { Value = secondItem?.PO_AIIS_Total.Value ?? _noData };
-                cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount.Value ?? _noData };
+                cm.PO_AIIS_Total_2 = new CellDTO { Value = secondItem?.PO_AIIS_Total?.Value ?? _empty };
+                cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount?.Value ?? _empty };
                 //cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount.Value ?? _noData };
-                cm.PU_GcalTotal_2 = new CellDTO { Value = secondItem?.PU_GcalTotal.Value ?? _noData };
-                cm.ZM_GcalTotal_2 = new CellDTO { Value = secondItem?.ZM_GcalTotal.Value ?? _noData };
+                cm.PU_GcalTotal_2 = new CellDTO { Value = secondItem?.PU_GcalTotal?.Value ?? _empty };
+                cm.ZM_GcalTotal_2 = new CellDTO { Value = secondItem?.ZM_GcalTotal?.Value ?? _empty };
 
 
                 SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);
@@ -50,15 +51,15 @@ namespace PotrebAuto.Extensions
 
 
 
-                qlickData.TryGetValue(cm.ObjectId.Value?.ToString(), out var qlickItem);
+                qlickData.TryGetValue(cm.ObjectId?.Value?.ToString(), out var qlickItem);
 
-                cm.BuildingId = new CellDTO { Value = qlickItem?.BuildingId.Value ?? _noData };
+                cm.BuildingId = new CellDTO { Value = qlickItem?.BuildingId?.Value ?? _noData };
 
 
-                GiTData.TryGetValue(cm.BuildingId.Value?.ToString(), out var GiTItem);
+                GiTData.TryGetValue(cm.BuildingId?.Value?.ToString(), out var GiTItem);
                 
-                cm.BuildingType = new CellDTO { Value = GiTItem?.BuildingType.Value ?? _noData };
-                cm.CityGiT = new CellDTO { Value = GiTItem?.City.Value ?? _noData };
+                cm.BuildingType = new CellDTO { Value = GiTItem?.BuildingType?.Value ?? _noData };
+                cm.CityGiT = new CellDTO { Value = GiTItem?.City?.Value ?? _noData };
 
 
                 

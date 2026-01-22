@@ -11,6 +11,8 @@
   "DatesRowStart": 1,
   "Dates_2ColStart": 0,
   "Dates_2RowStart": 0,
+  "QlickDataRowStart": 2,
+  "QlickDataColStart": 1,
   "DaysInMonth": 30,
   "DaysInMonth_2": 0
 }

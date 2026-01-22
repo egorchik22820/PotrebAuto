@@ -22,6 +22,10 @@ namespace PotrebAuto.Configuration.jsonModels
         public int GiTDataRowStart {  get; set; }
 
 
+        public int QlickDataRowStart { get; set; }
+        public int QlickDataColStart { get; set; }
+
+
         public int DatesColStart { get; set; }
         public int DatesRowStart { get; set; }
         public int Dates_2ColStart { get; set; }

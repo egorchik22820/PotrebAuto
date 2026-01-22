@@ -45,7 +45,7 @@ namespace PotrebAuto.Windows
                 if (Validation.GetHasError(textBox))
                     return false;
 
-                if (string.IsNullOrEmpty(textBox.Text) || !int.TryParse(textBox.Text, out int value) || value < 0 || value >= 100)
+                if (string.IsNullOrEmpty(textBox.Text) || !int.TryParse(textBox.Text, out int value) || value < 0 || value >= 200)
                     return false;
             }
             return true;
@@ -161,7 +161,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -189,7 +189,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -240,7 +240,7 @@ namespace PotrebAuto.Windows
         {
             if (!AreAllTextboxesValid())
             {
-                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 99.", "Ошибка валидации",
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -253,6 +253,10 @@ namespace PotrebAuto.Windows
                     ConsumersDataRowStart = int.Parse(ConsumersDataRowStartTextBox.Text),
                     SACTableRowStart = int.Parse(SACTableRowStartTextBox.Text),
                     SACDataRowStart = int.Parse(SACDataRowStartTextBox.Text),
+                    //GiTDataRowStart = int.Parse(),
+                    //GiTTableRowStart = int.Parse(),
+                    //QlickDataRowStart = int.Parse(),
+                    //QlickDataColStart = int.Parse(),
                     DatesColStart = int.Parse(DatesColStartTextBox.Text),
                     DatesRowStart = int.Parse(DatesRowStartTextBox.Text),
                     DaysInMonth = int.Parse(DaysInMonthTextBox.Text)
@@ -267,6 +271,66 @@ namespace PotrebAuto.Windows
                 MessageBox.Show($"Ошибка при сохранении настроек таблиц: {ex.Message}", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void GiTSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var GiTConf = new GiTConfig
+                {
+                    City = int.Parse(GiTCityTextBox.Text),
+                    BuildingId = int.Parse(GiTBuildingIdTextBox.Text),
+                    BuildingType = int.Parse(GiTBuildingTypeTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, GiTConf);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек ГиТ: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void QlickSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var QlickConf = new QlickConfig
+                {
+                    Guid = int.Parse(QlickGuidTextBox.Text),
+                    Id = int.Parse(QlickBuildingIdTextBox.Text)
+                };
+
+                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, QlickConf);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек Qlick: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Consumers_2SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

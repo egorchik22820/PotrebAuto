@@ -59,7 +59,7 @@ namespace PotrebAuto.Servises
             if (cell == null)
                 return new CellDTO { Value = noData};
 
-            if (string.IsNullOrWhiteSpace(cell.Value.ToString()))
+            if (cell.Value == null || string.IsNullOrWhiteSpace(cell.Value.ToString()))
                 return new CellDTO { Value = noData };
 
             if (!cell.Value.ToString().Contains("|"))

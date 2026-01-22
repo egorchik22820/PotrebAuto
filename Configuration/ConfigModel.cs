@@ -34,6 +34,7 @@ namespace PotrebAuto.Configuration
         public static Consumers_2Config Consumers_2Conf { get; set; } = new Consumers_2Config();
         public static SACConfig SACConf { get; set; } = new SACConfig();
         public static GiTConfig GiTConf { get; set; } = new GiTConfig();
+        public static QlickConfig QlickConf { get; set; } = new QlickConfig();
 
 
         // пути к исходным json в проекте
@@ -42,6 +43,7 @@ namespace PotrebAuto.Configuration
         public readonly static string _Consumers_2_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Consumers_2.json");
         public readonly static string _SAC_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "SourcesAndConsumers.json");
         public readonly static string _GiT_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "GiT.json");
+        public readonly static string _Qlick_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Qlick.json");
 
 
         //Метод для загрузки всех конфигураций при старте приложения
@@ -54,6 +56,7 @@ namespace PotrebAuto.Configuration
                 Consumers_2Conf = LoadConfig<Consumers_2Config>(_Consumers_2_ConfigPath);
                 SACConf = LoadConfig<SACConfig>(_SAC_ConfigPath);
                 GiTConf = LoadConfig<GiTConfig>(_GiT_ConfigPath);
+                QlickConf = LoadConfig<QlickConfig>(_Qlick_ConfigPath);
             }
             catch (Exception ex)
             {
@@ -81,6 +84,9 @@ namespace PotrebAuto.Configuration
                     break;
                 case var path when path == _GiT_ConfigPath:
                     GiTConf = config as GiTConfig;
+                    break;
+                case var path when path == _Qlick_ConfigPath:
+                    QlickConf = config as QlickConfig;
                     break;
             }
         }
