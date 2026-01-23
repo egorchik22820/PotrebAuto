@@ -7,12 +7,12 @@
   "SACDataRowStart": 2,
   "GiTTableRowStart": 0,
   "GiTDataRowStart": 0,
+  "QlickDataRowStart": 2,
+  "QlickDataColStart": 1,
   "DatesColStart": 26,
   "DatesRowStart": 1,
   "Dates_2ColStart": 0,
   "Dates_2RowStart": 0,
-  "QlickDataRowStart": 2,
-  "QlickDataColStart": 1,
   "DaysInMonth": 30,
-  "DaysInMonth_2": 0
+  "DaysInMonth_2": 30
 }

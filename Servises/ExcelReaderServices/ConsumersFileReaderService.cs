@@ -125,13 +125,13 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 // Кэшируем конфигурацию перед циклом
                 var config = ConfigModel.Consumers_2Conf;
                 var constConfig = ConfigModel.ConstantsConf;
-                int startDatesRow = constConfig.DatesRowStart;
-                int startDatesCol = constConfig.DatesColStart;
+                int startDatesRow = constConfig.Dates_2RowStart;
+                int startDatesCol = constConfig.Dates_2ColStart;
                 int startRow = constConfig.Consumers_2DataRowStart;
                 int addressCol = config.Address;
                 int pu_GcalTotalCol = config.PU_GcalTotal;
                 int zm_GcalTotalCol = config.ZM_GcalTotal;
-                int daysValueCol = constConfig.DatesColStart;
+                int daysValueCol = constConfig.Dates_2ColStart;// поменять на _2
 
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;

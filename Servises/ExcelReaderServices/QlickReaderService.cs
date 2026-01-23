@@ -22,12 +22,11 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                 var worksheet = package.GetWorksheet(1);
 
                 // Кэшируем конфигурацию перед циклом   // поменять
-                var config = ConfigModel.GiTConf;
+                var config = ConfigModel.QlickConf;
                 var constConfig = ConfigModel.ConstantsConf;
-                int startRow = constConfig.GiTDataRowStart;
-                int buildingId = config.BuildingId;
-                int buildingType = config.BuildingType;
-                int city = config.City;
+                int startRow = constConfig.QlickDataRowStart;
+                int buildingId = config.Id;
+                int buildingGuid = config.Guid;
 
                 // Определяем количество строк с данными
                 int rowCount = worksheet.Dimension.Rows;
@@ -42,8 +41,8 @@ namespace PotrebAuto.Servises.ExcelReaderServices
                         var data = new QlickDataObject
                         {
 
-                            BuildingGUID = worksheet.Cells[row, 2].GetCellDTO().TryGetIdFromIdWithBase(),
-                            BuildingId = worksheet.Cells[row, 3].GetCellDTO()
+                            BuildingGUID = worksheet.Cells[row, buildingGuid].GetCellDTO().TryGetIdFromIdWithBase(),
+                            BuildingId = worksheet.Cells[row, buildingId].GetCellDTO()
 
                         };
 

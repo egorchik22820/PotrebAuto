@@ -270,7 +270,7 @@
                         <TextBox Grid.Row="8" Grid.Column="1" x:Name="GiTDataRowStartTextBox" Margin="5" Height="25"/>
 
                         <Label Grid.Row="9" Grid.Column="0" Content="Начало данных таблицы Qlick (номер строки):" Margin="0,5"/>
-                        <TextBox Grid.Row="9" Grid.Column="1" x:Name="QlickTableRowStartTextBox" Margin="5" Height="25"/>
+                        <TextBox Grid.Row="9" Grid.Column="1" x:Name="QlickDataRowStartTextBox" Margin="5" Height="25"/>
 
                         <Label Grid.Row="10" Grid.Column="0" Content="Начало данных таблицы Qlick (номер столбца):" Margin="0,5"/>
                         <TextBox Grid.Row="10" Grid.Column="1" x:Name="QlickDataColStartTextBox" Margin="5" Height="25"/>

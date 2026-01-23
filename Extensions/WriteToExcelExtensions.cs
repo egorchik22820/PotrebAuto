@@ -159,7 +159,7 @@ namespace PotrebAuto.Extensions
                     }
 
                 }
-
+                // поменять на верные для второго файла
                 for (int j = 0; j < consumer.DaysValue.Count; j++) // цветные из 2 файла
                 {
                     if (consumer.DaysValue[j] != null)
@@ -179,7 +179,7 @@ namespace PotrebAuto.Extensions
                     counter++;
                 }
             }
-
+            // поменять на верные для второго файла
             counter = 0;
             foreach (var consumer in consumers) // даты из 2 файла
             {
