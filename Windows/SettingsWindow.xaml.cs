@@ -338,7 +338,7 @@ namespace PotrebAuto.Windows
                     BuildingType = int.Parse(GiTBuildingTypeTextBox.Text)
                 };
 
-                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, GiTConf);
+                ConfigModel.SaveConfig(ConfigModel._GiT_ConfigPath, GiTConf);
                 MessageBox.Show("Настройки таблиц сохранены!", "Успех",
                               MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -365,7 +365,7 @@ namespace PotrebAuto.Windows
                     Id = int.Parse(QlickBuildingIdTextBox.Text)
                 };
 
-                ConfigModel.SaveConfig(ConfigModel._Constants_ConfigPath, QlickConf);
+                ConfigModel.SaveConfig(ConfigModel._Qlick_ConfigPath, QlickConf);
                 MessageBox.Show("Настройки таблиц сохранены!", "Успех",
                               MessageBoxButton.OK, MessageBoxImage.Information);
             }

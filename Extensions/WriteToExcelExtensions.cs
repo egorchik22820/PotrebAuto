@@ -151,27 +151,36 @@ namespace PotrebAuto.Extensions
                 worksheet.Cells[row, 36].InsertToCell(consumer.Q_eng);
                 worksheet.Cells[row, 37].InsertToCell(consumer.IsValid_T);
 
-                for (int j = 0; j < consumer.DaysValue.Count; j++) // цветные из 1 файла
-                {
-                    if (consumer.DaysValue[j] != null)
-                    {
-                        worksheet.Cells[row, templateSecondDatesStartCol_FirstDates + j].InsertToCell(consumer.DaysValue[j]);// 30 - начало цветов в шаблоне
-                    }
 
+                if (consumer.DaysValue != null)
+                {
+                    for (int j = 0; j < consumer.DaysValue.Count; j++) // цветные из 1 файла
+                    {
+                        if (consumer.DaysValue[j] != null)
+                        {
+                            worksheet.Cells[row, templateSecondDatesStartCol_FirstDates + j].InsertToCell(consumer.DaysValue[j]);// 30 - начало цветов в шаблоне
+                        }
+
+                    }
                 }
+                
+
                 // поменять на верные для второго файла
-                for (int j = 0; j < consumer.DaysValue.Count; j++) // цветные из 2 файла
+                if (consumer.DaysValue_2 != null)
                 {
-                    if (consumer.DaysValue[j] != null)
+                    for (int j = 0; j < consumer.DaysValue_2.Count; j++) // цветные из 2 файла
                     {
-                        worksheet.Cells[row, templateSecondDatesStartCol + j].InsertToCell(consumer.DaysValue[j]);// 30 - начало цветов в шаблоне
+                        if (consumer.DaysValue_2[j] != null)
+                        {
+                            worksheet.Cells[row, templateSecondDatesStartCol + j].InsertToCell(consumer.DaysValue_2[j]);// 30 - начало цветов в шаблоне
+                        }
                     }
-
                 }
+                
             }
 
             int counter = 0;
-            foreach (var consumer in consumers) // даты из 1 файла
+            foreach (var consumer in consumers) // даты из 1 файла      НЕ РОБИТ
             {
                 if (counter <= ConsumersDataObject.DateList.Count - 1) // нужно оптимизир
                 {
@@ -181,11 +190,11 @@ namespace PotrebAuto.Extensions
             }
             // поменять на верные для второго файла
             counter = 0;
-            foreach (var consumer in consumers) // даты из 2 файла
+            foreach (var consumer in consumers) // даты из 2 файла      НЕ РОБИТ
             {
-                if (counter <= ConsumersDataObject.DateList.Count - 1)
+                if (counter <= ConsumersDataObject.DateList_2.Count - 1)
                 {
-                    worksheet.Cells[templateSecondDatesStartRow, templateSecondDatesStartCol + counter].InsertToCell(ConsumersDataObject.DateList[counter]);
+                    worksheet.Cells[templateSecondDatesStartRow, templateSecondDatesStartCol + counter].InsertToCell(ConsumersDataObject.DateList_2[counter]);
                     counter++;
                 }
             }

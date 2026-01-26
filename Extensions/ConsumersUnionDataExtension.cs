@@ -43,6 +43,7 @@ namespace PotrebAuto.Extensions
                 //cm.ColorDaysCount_2 = new CellDTO { Value = secondItem?.ColorDaysCount.Value ?? _noData };
                 cm.PU_GcalTotal_2 = new CellDTO { Value = secondItem?.PU_GcalTotal?.Value ?? _empty };
                 cm.ZM_GcalTotal_2 = new CellDTO { Value = secondItem?.ZM_GcalTotal?.Value ?? _empty };
+                cm.DaysValue_2 = secondItem?.DaysValue;
 
 
                 SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);
