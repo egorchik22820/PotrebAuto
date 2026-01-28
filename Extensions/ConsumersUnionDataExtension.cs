@@ -44,6 +44,7 @@ namespace PotrebAuto.Extensions
                 cm.PU_GcalTotal_2 = new CellDTO { Value = secondItem?.PU_GcalTotal?.Value ?? _empty };
                 cm.ZM_GcalTotal_2 = new CellDTO { Value = secondItem?.ZM_GcalTotal?.Value ?? _empty };
                 cm.DaysValue_2 = secondItem?.DaysValue;
+                ConsumersDataObject.DateList_2 = ConsumersDataObject.DateListTemp;
 
 
                 SACDict.TryGetValue(cm.TU_AIIS.Value?.ToString(), out var sacItem);

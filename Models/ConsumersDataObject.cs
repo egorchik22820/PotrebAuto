@@ -14,7 +14,7 @@ namespace PotrebAuto.Models
     {
         private static readonly int maxDays = ConfigModel.DaysInMonth_MAX;
         public static List<CellDTO> DateList = new List<CellDTO>(maxDays);
-
+        public static List<CellDTO> DateListTemp = new List<CellDTO>(maxDays);
         public static List<CellDTO> DateList_2 = new List<CellDTO>(maxDays);
 
         public ConsumersDataObject()

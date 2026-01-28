@@ -186,6 +186,9 @@ namespace PotrebAuto.Windows
                 var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
                                                                             .GetFiltered();
 
+                ConsumersDataObject.DateListTemp = ConsumersDataObject.DateList;
+
+
                 var consumersSecond = ConsumersFileReaderService.ReadExcelFileExtra(_selectedSecondConsumersPath)
                                                                             .GetFilteredDict();
 

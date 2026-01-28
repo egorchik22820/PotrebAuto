@@ -378,7 +378,30 @@ namespace PotrebAuto.Windows
 
         private void Consumers_2SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!AreAllTextboxesValid())
+            {
+                MessageBox.Show("Пожалуйста, исправьте ошибки в полях ввода. Все числа должны быть в диапазоне от 0 до 199.", "Ошибка валидации",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                var consumers_2Config = new Consumers_2Config
+                {
+                    Address = int.Parse(Consumers_2AddressTextBox.Text),
+                    PU_GcalTotal = int.Parse(Consumers_2PU_GcalTotalTextBox.Text),
+                    ZM_GcalTotal = int.Parse(Consumers_2ZM_GcalTotalTextBox.Text)
+                };
 
+                ConfigModel.SaveConfig(ConfigModel._Consumers_2_ConfigPath, consumers_2Config);
+                MessageBox.Show("Настройки таблиц сохранены!", "Успех",
+                              MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении настроек доп. файла потребителей: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
