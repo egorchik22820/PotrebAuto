@@ -301,7 +301,7 @@ namespace PotrebAuto.Windows
                     DatesRowStart = int.Parse(DatesRowStartTextBox.Text),
 
                     Dates_2ColStart = int.Parse(DatesColStart_2TextBox.Text),
-                    Dates_2RowStart = int.Parse(DatesColStart_2TextBox.Text),
+                    Dates_2RowStart = int.Parse(DatesRowStart_2TextBox.Text),
 
                     DaysInMonth = int.Parse(DaysInMonthTextBox.Text),
 

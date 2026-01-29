@@ -15,6 +15,8 @@ namespace PotrebAuto.Configuration
         public readonly static string TemplateSheetName = "Page 1";
         public readonly static int DaysInMonth_MAX = 35;
 
+        public readonly static string DefoultString = "Файл не выбран";
+
         // для шаблона
         public readonly static int TemplateDatesStartRow = 2;
         public readonly static int TemplateDatesStartCol = 30;

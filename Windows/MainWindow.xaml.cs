@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using PotrebAuto.Configuration;
 using PotrebAuto.Extensions;
 using PotrebAuto.Extensions.Filters;
 using PotrebAuto.Models;
@@ -34,11 +35,29 @@ namespace PotrebAuto.Windows
         private string _selectedConsumersAndSourcesPath;
         private string _selectedGiTPath;
         private string _selectedQlickPath;
+
+        private readonly string defoultString = ConfigModel.DefoultString; // перенести в конфиг модел
+
         private readonly int _maxPathLength = 20;
+
+        // Пути до шаблона и итоговой формы
+        private string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
+        private string templatePathExtra = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplateSecond.xlsx");
+
+        // для сохранениея в папке на рабочем столе
+        private string reportsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Потребители");
+        private string newFilePath;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Создаем папку если ее нет
+            if (!Directory.Exists(reportsFolder))
+                Directory.CreateDirectory(reportsFolder);
+
+            newFilePath = Path.Combine(reportsFolder, "Потребители_ДАТА.xlsx");
+
             Configuration.ConfigModel.LoadAllConfigurations();
         }
 
@@ -132,7 +151,7 @@ namespace PotrebAuto.Windows
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Excel files (*.xlsx;*.xls)|*.xlsx;*.xls",
-                Title = "Выберете файл с идентификатором объекта и кодом смтроения",
+                Title = "Выберете файл с идентификатором объекта и кодом строения",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
@@ -145,74 +164,142 @@ namespace PotrebAuto.Windows
             }
         }
 
-        private void start_Click(object sender, RoutedEventArgs e)
+        private void StartProgramm()
         {
-            if (string.IsNullOrEmpty(_selectedConsumersPath) || string.IsNullOrEmpty(_selectedConsumersAndSourcesPath))
+            var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
+                                                                            .GetFiltered();
+
+            var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
+                                                                                                .GetFilteredDict();
+
+            var result = consumers.GetUnionData(sources);
+
+
+            // вставка в эксель
+            ExcelInsertService.ExcelDataInsert(templatePath, newFilePath, result);
+        }
+
+        private void StartProgrammExtra()
+        {
+            var GiTData = GiTFileReaderService.ReadExcelFile(_selectedGiTPath)
+                                                                    .GetFilteredDict();
+
+            var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
+                                                                        .GetFiltered();
+
+            ConsumersDataObject.DateListTemp = ConsumersDataObject.DateList;
+
+
+            var consumersSecond = ConsumersFileReaderService.ReadExcelFileExtra(_selectedSecondConsumersPath)
+                                                                        .GetFilteredDict();
+
+            var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
+                                                                                            .GetFilteredDict();
+
+            var qlickData = QlickReaderService.ReadExcelFile(_selectedQlickPath)
+                                                                .GetFilteredDict();
+
+
+
+            
+            var result = consumers.GetUnionDataExtra(consumersSecond, sources, GiTData, qlickData);
+
+
+
+            ExcelInsertService.ExcelDataInsertExtra(templatePathExtra, newFilePath,
+                                                result, consumersSecond, qlickData, sources);
+        }
+
+        private bool IsExtra()
+        {
+            if (!string.IsNullOrEmpty(_selectedSecondConsumersPath) || !string.IsNullOrEmpty(_selectedGiTPath) || !string.IsNullOrEmpty(_selectedQlickPath))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsValidToStart()
+        {
+            if (!string.IsNullOrEmpty(_selectedConsumersPath) && !string.IsNullOrEmpty(_selectedConsumersAndSourcesPath))
+            {
+                if (File.Exists(_selectedConsumersPath) && File.Exists(_selectedConsumersAndSourcesPath))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Файл(ы) не найден(ы)!", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    return false;
+                }
+            }
+            else
             {
                 MessageBox.Show("Сначала выберите необходимые файлы!", "Внимание",
                               MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
-            if (!File.Exists(_selectedConsumersPath) || !File.Exists(_selectedConsumersAndSourcesPath))
+                return false;
+            }
+        }
+
+        private bool IsValidToStartExtra()
+        {
+            if (!string.IsNullOrEmpty(_selectedSecondConsumersPath) && !string.IsNullOrEmpty(_selectedGiTPath) && !string.IsNullOrEmpty(_selectedQlickPath))
             {
-                MessageBox.Show("Файл(ы) не найден(ы)!", "Ошибка",
+                if (File.Exists(_selectedSecondConsumersPath) && File.Exists(_selectedGiTPath) && File.Exists(_selectedQlickPath))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Файл(ы) не найден(ы)!", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Сначала выберите необходимые файлы!", "Внимание",
+                              MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return false;
             }
 
+        }
 
-            // Путь до шаблона и итоговой формы
-            //string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplate.xlsx");
-            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExcelTemplates", "ConsumersTemplateSecond.xlsx");
+        private void start_Click(object sender, RoutedEventArgs e)
+        {
 
-            // Автоматическое сохранение в папку на рабочем столе
-            string reportsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Потребители");
-
-            // Создаем папку если ее нет
-            if (!Directory.Exists(reportsFolder))
-                Directory.CreateDirectory(reportsFolder);
-
-            string newFilePath = Path.Combine(reportsFolder, "Потребители_ДАТА.xlsx");
-
-
-
-            // вот тут свитч вьебать на проверку доп файла
             try
             {
-                var GiTData = GiTFileReaderService.ReadExcelFile(_selectedGiTPath)
-                                                                    .GetFilteredDict();
 
-                var consumers = ConsumersFileReaderService.ReadExcelFile(_selectedConsumersPath)
-                                                                            .GetFiltered();
+                switch (IsExtra())
+                {
+                    case true:
 
-                ConsumersDataObject.DateListTemp = ConsumersDataObject.DateList;
+                        if (!IsValidToStartExtra())
+                            return;
 
-
-                var consumersSecond = ConsumersFileReaderService.ReadExcelFileExtra(_selectedSecondConsumersPath)
-                                                                            .GetFilteredDict();
-
-                var sources = SourcesAndConsumersFileReaderService.ReadExcelFile(_selectedConsumersAndSourcesPath)
-                                                                                                .GetFilteredDict();
-
-                var qlickData = QlickReaderService.ReadExcelFile(_selectedQlickPath)
-                                                                    .GetFilteredDict();
-
-                
+                        StartProgrammExtra();
+                        break;
 
 
-                // хзхз
-                var result = consumers.GetUnionDataExtra(consumersSecond, sources, GiTData, qlickData);
-                //var resultSecond = consumersSecond.GetUnionData(sources);
+                    case false:
+
+                        if (!IsValidToStart())
+                            return;
+
+                        StartProgramm();
+                        break;
 
 
+                    default:
+                        return;
+                }
 
-                // вставка в эксель
-                //ExcelInsertService.ExcelDataInsert(templatePath, newFilePath,
-                //                                    result);
-
-                ExcelInsertService.ExcelDataInsertExtra(templatePath, newFilePath,
-                                                    result, consumersSecond, qlickData, sources);
 
 
                 ReadyText.Text = "ГОТОВО";
@@ -227,8 +314,6 @@ namespace PotrebAuto.Windows
                 MessageBox.Show($"Ошибка при обработке данных: {ex.Message}\n\nПроверьте:\n- Корректность выбранных файлов\n- Настройки столбцов",
                               "Ошибка обработки", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
 
         }
 
@@ -271,6 +356,22 @@ namespace PotrebAuto.Windows
             }
         }
 
-        
+        private void clearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReadyText.Text = string.Empty;
+            ReadyText.Margin = new Thickness(0);
+
+            _selectedConsumersPath = string.Empty;
+            _selectedSecondConsumersPath = string.Empty;
+            _selectedConsumersAndSourcesPath = string.Empty;
+            _selectedGiTPath = string.Empty;
+            _selectedQlickPath = string.Empty;
+
+            OriginalFileText.Text = defoultString;
+            OriginalSecondFileText.Text = defoultString;
+            ConsumersAndSourcesFileText.Text = defoultString;
+            GiTFileText.Text = defoultString;
+            QlickFileText.Text = defoultString;
+        }
     }
 }
