@@ -40,6 +40,35 @@
             <Setter Property="BorderBrush" Value="#FFA0A0A0"/>
         </Style>
 
+        <Style x:Key="CircleButtonStyleDark" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                        CornerRadius="7"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Width="180" Height="30">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD0D0D0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFC0C0C0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+        </Style>
+
         <Style x:Key="CircleButtonStyleSmall" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -157,7 +186,7 @@
                         <Button x:Name="OriginalFileBtn" Content="Исходник"
                                 FontWeight="DemiBold"
                                 Click="OriginalFileBtn_Click" Margin="5" 
-                                Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
+                                Style="{StaticResource CircleButtonStyleDark}" Background="#FFACACAC"
                                 />
 
                         <TextBlock x:Name="OriginalFileText" Margin="5" TextWrapping="Wrap"
@@ -172,7 +201,7 @@
                         <Button x:Name="ConsumersAndSourcesFileBtn" Content="Источники - потребители"
                                 FontWeight="DemiBold"
                                 Click="ConsumersAndSourcesFileBtn_Click" Margin="5" 
-                                Style="{StaticResource CircleButtonStyle}" Background="#FFE3E3E3"
+                                Style="{StaticResource CircleButtonStyleDark}" Background="#FFACACAC"
                                 />
 
                         <TextBlock x:Name="ConsumersAndSourcesFileText" Margin="5" TextWrapping="Wrap"
