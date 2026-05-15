@@ -11,6 +11,10 @@ namespace PotrebAuto.Configuration
 {
     public static class ConfigModel
     {
+
+        public readonly static string Name = "";
+        public readonly static string Description = "from potreb";
+
         public readonly static string NoData = "Нет данных";
         public readonly static string TemplateSheetName = "Page 1";
         public readonly static int DaysInMonth_MAX = 35;
@@ -46,6 +50,7 @@ namespace PotrebAuto.Configuration
         public readonly static string _SAC_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "SourcesAndConsumers.json");
         public readonly static string _GiT_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "GiT.json");
         public readonly static string _Qlick_ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "json", "Qlick.json");
+        private static readonly string name;
 
 
         //Метод для загрузки всех конфигураций при старте приложения
